@@ -1,0 +1,40 @@
+:root {
+    --background: rgb(200, 200, 200);
+    --hovered-background: rgb(225, 225, 225);
+    --pannel: rgb(175, 175, 175);
+    --tabs: rgb(150, 150, 150);
+    --text: rgb(25, 25, 25);
+    --hovered-pannel: rgb(200, 200, 200);
+    --hovered-tabs: rgb(175, 175, 175);
+    --active-tabs: linear-gradient(var(--hovered-tabs), var(--background));
+    --slider: rgb(0, 0, 255);
+    --shadows: rgb(100, 100, 100);
+    --borders: transparent;
+    --right-width: 280px;
+    --nec-border: 1px solid rgb(175, 175, 175);
+    --strong-border: 1px solid rgb(50, 50, 50);
+    --masks: none;
+    --hovered-tab-z-index: 0;
+    --hovered-tab-height: 50px;
+    --hovered-tab-box-shadow: none;
+  }
+  
+  body {
+    overflow: hidden;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  #top-bar {
+    width: 100%;
+    height: 5rem;
+    background: var(--pannel);
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
