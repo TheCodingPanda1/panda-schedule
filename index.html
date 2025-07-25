@@ -2,23 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" href="https://cdn.glitch.global/04691576-823b-4f15-ae12-ec92ea17160f/Drawing.sketchpad%20(3).png?v=1737441466749" />
 
     <title>Panda Schedule</title>
 
     <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="/style.css" />
 
     <!-- import the file that edits the search bar -->
-    <script src="./search.js" defer></script>
+    <script src="/search.js" defer></script>
 
     <!-- Import the file that edits the tabs -->
-    <script src="./tabs.js" defer></script>
+    <script src="tabs.js" defer></script>
     
     <!--Import the file that sets up the app-->
-    <script src="./setup.js" defer></script>
+    <script src="setup.js" defer></script>
 
+    <!-- Import the file that handles the settings tab -->
+    <script src="settings.js" defer></script>
   </head>
   <body>
     <div id = "top-bar">
@@ -41,17 +43,17 @@
       <button id = "new-tab" title = "New Tab">+</button>
     </div>
     <div id = "tab-bar">
-      <div>
+      <div id = "tab-holder">
         <div id = "slider"></div>
-        <div class = "tab" goto = "0">
+        <div class = "tab">
           <p>Day View</p>
           <svg class = "selected-gradient"></svg>
         </div>
-        <div class = "tab" goto = "1">
+        <div class = "tab">
           <p>Week View</p>
           <svg class = "selected-gradient"></svg>
         </div>
-        <div class = "tab" goto = "2">
+        <div class = "tab">
           <p>Month View</p>
           <svg class = "selected-gradient"></svg>
         </div>

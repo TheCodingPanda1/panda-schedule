@@ -7,12 +7,9 @@
   --hovered-pannel: rgb(225, 225, 225);
   --hovered-tabs: rgb(200, 200, 200);
   --active-tabs: var(--background);
-  --slider: rgb(0, 0, 255);
   --shadows: rgb(100, 100, 100);
   --borders: transparent;
   --right-width: 280px;
-  --nec-border: 1px solid rgb(175, 175, 175);
-  --strong-border: 1px solid rgb(50, 50, 50);
   --masks: none;
   --hovered-tab-z-index: 0;
   --hovered-tab-height: 50px;
@@ -22,9 +19,32 @@
   --radius: 0.75rem;
   --nec-radius: 0.75rem;
   --button-scale: 0.75;
-  --maximum-tab-width: calc(33% / var(--button-scale));
+  --maximum-tab-width: 100%;
   --tab-width: calc(33% / var(--button-scale));
   --tab-margin: calc((3.125rem - (3.125rem * var(--button-scale))) / 2 / var(--button-scale));
+  --blur-amount: 50px;
+  --transparent-background: rgba(200, 200, 200, 0.5);
+  --highlight-colour: rgb(0, 0, 255);
+  --slider-height: 7px;
+}
+html {
+  overflow: hidden;
+}
+.dark-mode {
+  --background: rgb(50, 50, 50);
+  --hovered-background: rgb(75, 75, 75);
+  --pannel: rgb(60, 60, 60);
+  --tabs: rgb(40, 40, 40);
+  --text: rgb(200, 200, 200);
+  --hovered-pannel: rgb(100, 100, 100);
+  --hovered-tabs: rgb(75, 75, 75);
+  --active-tabs: var(--background);
+  --slider: rgb(0, 200, 255);
+  --shadows: rgb(25, 25, 25);
+  --borders: transparent;
+  --right-width: 280px;
+  --transparent-background: rgba(75, 75, 75, 0.5);
+  --highlight-colour: rgb(0, 200, 255);
 }
 body {
   position: absolute;
@@ -35,6 +55,7 @@ body {
   margin: 0px;
   padding: 0px;
   overflow: hidden;
+  color: var(--text);
 }
 #top-bar {
   width: 100%;
@@ -59,7 +80,7 @@ body {
   align-items: center;
   border-radius: var(--radius);
   scale: var(--button-scale);
-  
+  color: var(--text);
 }
 #top-bar button:hover {
   background: var(--hovered-pannel);
@@ -166,10 +187,12 @@ body {
   cursor: pointer;
   transform: scaleX(var(--button-scale));
   transform-origin: left center;
+  color: var(--text);
 }
 #search-bar:has(input:focus){
   z-index: 3;
 }
+
 #search-bar input:focus {
   outline: none;
   cursor: text;
@@ -218,7 +241,6 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: var(--transition);
   border-radius: var(--nec-radius);
 }
 #search-bar div span {
@@ -231,7 +253,7 @@ body {
   transition: var(--transition);
 }
 #search-bar div div:hover {
-  background: var(--hovered-background);
+  background: var(--highlight-colour);
 }
 #new-tab {
   right: 0px;
@@ -252,9 +274,9 @@ body {
   box-shadow: inset 0px 10px 10px -10px var(--shadows), inset 0 -7px 10px -10px var(--shadows);
 }
 #tab-bar div:not(.tab):not(.tab div):not(#slider) {
-  width: calc(100% / var(--button-scale) + var(--tab-margin) * 2 * var(--button-scale));
+  width: calc(100% / var(--button-scale) + var(--tab-margin));
   height: 3.125rem;
-  margin: calc(0px - var(--tab-margin) * var(--button-scale));
+  margin-left: calc(0px - var(--tab-margin) / 2 * var(--button-scale));
   padding: 0px;
   display: flex;
   align-items: center;
@@ -264,7 +286,6 @@ body {
   position: absolute;
 }
 .tab {
-  width: var(--tab-width);
   max-width: var(--maximum-tab-width);
   display: flex;
   align-items: center;
@@ -279,6 +300,7 @@ body {
   padding: 0px;
   position: relative;
   z-index: 0;
+  flex: 1 1 0px;
 }
 .tab:hover {
   background: var(--hovered-tabs);
@@ -287,6 +309,8 @@ body {
 .tab p {
   z-index: 2;
   pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .selected-gradient {
   position: absolute;
@@ -320,7 +344,7 @@ body {
   width: var(--tab-width);
   max-width: var(--maximum-tab-width);
   top: calc(0px - (3.125rem - 3.125rem * var(--button-scale)) / 2 / var(--button-scale));
-  background: var(--slider);
+  background: var(--highlight-colour);
   box-shadow: 0 0 10px var(--shadows);
   z-index: 3;
   left: 0px;
@@ -329,23 +353,10 @@ body {
   border-top-left-radius: var(--radius);
   border-top-right-radius: var(--radius);
   box-shadow: 0px 0px 10px var(--shadows);
-  height: 6px;
+  height: var(--radius);
   border: none;
   padding: 0px;
-  display: none;
-}
-#slider::before {
-  content: "";
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  border-radius: 0px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  width: 100%;
-  height: calc((3.125rem - (3.125rem * var(--button-scale))) / 2 / var(--button-scale));
-  box-shadow: 0 0 10px var(--shadows);
-  clip-path: inset(0 -10px 0 -10px);
+  clip-path: inset(-10px -10px calc(var(--radius) - var(--slider-height)) -10px);
 }
 #main .screen {
   position: absolute;
@@ -353,4 +364,87 @@ body {
   width: 100%;
   height: 100%;
   scroll-snap-align: start;
+  overflow: hidden;
+}
+.scroller {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-top: 3.125rem;
+}
+@keyframes tabExpand {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.control-top-bar {
+  height: 3.125rem;
+  background: var(--background);
+  box-shadow: 0 2px 10px var(--shadows);
+  scale: var(--button-scale);
+  border-radius: var(--radius);
+  width: fit-content;
+  left: calc(var(--tab-margin) * var(--button-scale));
+  background: var(--transparent-background);
+  backdrop-filter: blur(var(--blur-amount));
+  transition: var(--transition);
+  font-size: 2rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: auto;
+}
+#settings-screen {
+  font-size: 1.25rem;
+}
+.fixer {
+  height: calc(3.125rem + 5px);
+}
+.settings-folder {
+  width: calc(100% / var(--button-scale) - var(--tab-margin) * 2);
+  height: 3.125rem;
+  display: flex;
+  scale: var(--button-scale);
+  transition: var(--transition);
+  cursor: pointer;
+  border-radius: var(--radius);
+  transform-origin: left center;
+  margin-left: calc(var(--tab-margin) * var(--button-scale));
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.settings-folder:hover {
+  background: var(--hovered-background);
+}
+.settings-folder::before {
+  content: ">";
+  font-size: 2rem;
+  color: transparent;
+  transition: var(--transition);
+  position: absolute;
+  right: 5px;
+}
+.settings-folder:hover::before {
+  color: var(--text);
+}
+.folder-holder {
+  display: none;
+  width: calc(100% + var(--tab-margin) * 2);
+  height: var(--screen-height / var(--button-scale));
+  position: absolute;
+  right: calc(0 - var(--tab-margin));
+  top: 0px;
 }

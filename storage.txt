@@ -1,0 +1,6 @@
+
+To change to safari
+if(navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1 && navigator.userAgent.indexOf("Firefox") == -1 && navigator.userAgent.indexOf("Edge") == -1){
+    location.href = location.href.replace("/index.html", "");
+    location.href += "safari";
+}
