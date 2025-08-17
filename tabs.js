@@ -9,8 +9,6 @@ var main = document.getElementById("main");
 var neededTransition = "0s";
 
 root.style.setProperty("--tab-width", tabWidth / scale + "px");
-
-var selectedGradients = document.getElementsByClassName("selected-gradient");
 var minusAmount = 0;
 if(tabWidth > maxTabWidth){
     tabWidth = maxTabWidth;
@@ -33,9 +31,7 @@ function getContentWidth(element){
 function remify(num){
     return num / 16;
 }
-function pxify(num){
-    return num * 16;
-}
+
 function findWhichElement(element, array){
     for(var i = 0; i < array.length; i ++){
         if(array[i] === element){
@@ -46,6 +42,10 @@ function findWhichElement(element, array){
 }
 var lastScrollLeft = 0;
 function changeSliderPos(){
+    if(Math.round(main.scrollLeft / document.body.getBoundingClientRect().width) != main.scrollLeft / document.body.getBoundingClientRect().width){
+        neededTransition = "0s";
+    }
+    console.log(Math.round(main.scrollLeft / document.body.getBoundingClientRect().width) != main.scrollLeft / document.body.getBoundingClientRect().width);
     slider.style.transition = neededTransition;
     let from = tabs[0].offsetLeft;
     let to = tabs[tabs.length - 1].offsetLeft;
@@ -76,24 +76,8 @@ function changeSliderPos(){
     svg.style.transform = "translateZ(0)";
     slider.style.left = scrollAmount * (toElement.offsetLeft - fromElement.offsetLeft) + fromElement.offsetLeft + "px";
 }
-function pxCssVar (variable){
-    let element = document.createElement("div");
-    element.style.width = `var(--${variable})`;
-    document.body.appendChild(element);
-    //Clean up
-    var result = element.getBoundingClientRect().width;
-    document.body.removeChild(element);
-    return result;
-}
 changeSliderPos();
 main.addEventListener("scroll", changeSliderPos);
-function setSvgSize(){
-    tabWidth = tabs[0].getBoundingClientRect().width / scale;
-    for(var i = 0; i < selectedGradients.length; i ++){
-        selectedGradients[i].style.width = pxCssVar("radius") * 2 + pxify(tabWidth) + "px";
-        selectedGradients[i].innerHTML = `<path d = "M${pxCssVar("radius")} ${pxCssVar("radius")} a ${pxCssVar("radius")} ${pxCssVar("radius")} 0 0 1 ${pxCssVar("radius")} ${0 - pxCssVar("radius")} l ${tabWidth - pxCssVar("radius") * 2} 0 a ${pxCssVar("radius")} ${pxCssVar("radius")} 0 0 1 ${pxCssVar("radius")} ${pxCssVar("radius")} L ${tabWidth + pxCssVar("radius")} ${pxify(3.125) / scale - pxCssVar("radius")} a ${pxCssVar("radius")} ${pxCssVar("radius")} 0 0 0 ${pxCssVar("radius")} ${pxCssVar("radius")} L 0 ${pxify(3.125) / scale} a ${pxCssVar("radius")} ${pxCssVar("radius")} 0 0 0 ${pxCssVar("radius")} ${0 - pxCssVar("radius")} z" stroke = "none" fill="var(--active-tabs)"/>`;
-    }
-}
 setSvgSize();
 function setClicks(){
     for(var i = 0; i < tabs.length; i ++){
@@ -120,5 +104,4 @@ window.addEventListener("resize", function() {
 });
 window.addEventListener("resize", function(){
     root.style.setProperty("--tab-width", tabs[0].getBoundingClientRect().width / scale + "px");
-
 });

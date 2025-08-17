@@ -22,28 +22,30 @@
   --maximum-tab-width: 100%;
   --tab-width: calc(33% / var(--button-scale));
   --tab-margin: calc((3.125rem - (3.125rem * var(--button-scale))) / 2 / var(--button-scale));
-  --blur-amount: 50px;
-  --transparent-background: rgba(200, 200, 200, 0.5);
+  --blur-amount: 15px;
+  --transparent-background: rgba(200, 200, 200, 0);
   --highlight-colour: rgb(0, 0, 255);
   --slider-height: 7px;
+  --highlight-text: var(--background);
 }
 html {
-  overflow: hidden;
+  content-visibility: auto;
+  width: 100%;
+  height: 100%;
 }
 .dark-mode {
-  --background: rgb(50, 50, 50);
+  --background: rgb(25, 25, 25);
   --hovered-background: rgb(75, 75, 75);
-  --pannel: rgb(60, 60, 60);
-  --tabs: rgb(40, 40, 40);
+  --pannel: rgb(30, 30, 30);
+  --tabs: rgb(50, 50, 50);
   --text: rgb(200, 200, 200);
   --hovered-pannel: rgb(100, 100, 100);
-  --hovered-tabs: rgb(75, 75, 75);
+  --hovered-tabs: rgb(100, 100, 100);
   --active-tabs: var(--background);
-  --slider: rgb(0, 200, 255);
-  --shadows: rgb(25, 25, 25);
+  --shadows: rgb(150, 150, 150);
   --borders: transparent;
   --right-width: 280px;
-  --transparent-background: rgba(75, 75, 75, 0.5);
+  --transparent-background: rgba(75, 75, 75, 0);
   --highlight-colour: rgb(0, 200, 255);
 }
 body {
@@ -54,8 +56,8 @@ body {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  overflow: hidden;
   color: var(--text);
+  content-visibility: auto;
 }
 #top-bar {
   width: 100%;
@@ -225,6 +227,8 @@ body {
   background: var(--hovered-pannel);
   box-shadow: 0 0 0.25rem var(--shadows);
   border-radius: var(--nec-radius);
+  background: var(--transparent-background);
+  backdrop-filter: blur(var(--blur-amount));
 }
 #search-bar div:not(#search-bar div div) {
   width: calc(100% * (1 + 1 / (var(--button-scale) / (1 - var(--button-scale)))));
@@ -254,6 +258,7 @@ body {
 }
 #search-bar div div:hover {
   background: var(--highlight-colour);
+  color: var(--highlight-text);
 }
 #new-tab {
   right: 0px;
@@ -361,10 +366,12 @@ body {
 #main .screen {
   position: absolute;
   top: 0px;
-  width: 100%;
+  width: var(--screen-width);
+  height: calc(var(--screen-height) - 6.25rem);
   height: 100%;
   scroll-snap-align: start;
   overflow: hidden;
+  scroll-snap-stop: start;
 }
 .scroller {
   position: absolute;
@@ -372,9 +379,9 @@ body {
   top: 0px;
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: scroll;
   padding-top: 3.125rem;
+  z-index: 0;
 }
 @keyframes tabExpand {
   from {
@@ -397,13 +404,13 @@ body {
   transition: var(--transition);
   font-size: 2rem;
   color: var(--text);
-  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 3;
   padding-left: 10px;
   padding-right: 10px;
   margin: auto;
+  display: flex;
 }
 #settings-screen {
   font-size: 1.25rem;
@@ -412,7 +419,7 @@ body {
   height: calc(3.125rem + 5px);
 }
 .settings-folder {
-  width: calc(100% / var(--button-scale) - var(--tab-margin) * 2);
+  width: calc(var(--screen-width) / var(--button-scale) - var(--tab-margin) * 2);
   height: 3.125rem;
   display: flex;
   scale: var(--button-scale);
@@ -421,10 +428,10 @@ body {
   border-radius: var(--radius);
   transform-origin: left center;
   margin-left: calc(var(--tab-margin) * var(--button-scale));
-  position: relative;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
+  overflow: visible;
 }
 .settings-folder:hover {
   background: var(--hovered-background);
@@ -440,11 +447,294 @@ body {
 .settings-folder:hover::before {
   color: var(--text);
 }
+#settings-scroller {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  display: grid;
+  grid-template-columns: var(--screen-width) var(--screen-width) var(--screen-width) var(--screen-width) 
+}
 .folder-holder {
   display: none;
-  width: calc(100% + var(--tab-margin) * 2);
-  height: var(--screen-height / var(--button-scale));
+  width: calc(var(--screen-width) / var(--button-scale));
+  height: fit-content;
   position: absolute;
-  right: calc(0 - var(--tab-margin));
+  left: calc(var(--screen-width) / var(--button-scale));
   top: 0px;
+}
+.scroll-point {
+  width: var(--screen-width);
+  margin: 0px;
+  padding: 0px;
+  scroll-snap-align: start;
+  background: transparent;
+  pointer-events: none;
+  position: absolute;
+}
+.input {
+    width: fit-content;
+    background: var(--background);
+    border-radius: var(--radius);
+    content-visibility: auto;
+    display: inline-block;
+    height: calc(3.125rem * var(--button-scale));
+    transition: var(--transition);
+    position: relative;
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+}
+.input div:not(.colour-widget) {
+    height: calc(3.125rem * var(--button-scale) - 20px);
+    padding: 10px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    padding-right: 30px;
+}
+.input div:not(.colour-widget):hover {
+    background: var(--hovered-background);
+}
+.selected {
+    box-shadow: 0 3px 10px var(--shadows);
+    height: var(--menu-height);
+    background: var(--transparent-background);
+    backdrop-filter: blur(var(--blur-amount))
+}
+.selected div:not(.colour-widget) {
+  transition: none;
+  border-radius: var(--radius);
+}
+.selected div:not(.colour-widget):hover {
+  background: var(--highlight-colour);
+  color: var(--highlight-text)
+}
+#themeChangeHolder {
+  height: calc(3.125rem * var(--button-scale));
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+#themeChangeHolder .selected {
+  margin-top: calc(3.125rem * var(--button-scale) * 2);
+}
+.input::before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  border: 0.4375rem solid transparent;
+  border-top: 0.625rem solid var(--text);
+  position: absolute;
+  right: 0.4375rem;
+  top: calc(50% - 0.3125rem);
+  pointer-events: none;
+}
+.selected::before {
+  display: none;
+}
+.colour-widget {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: absolute;
+  right: 0.4375rem;
+  display: none;
+}
+.selected .colour-widget {
+  display: block;
+}
+#device {
+  background: white;
+}
+#light {
+  background: white;
+}
+#dark {
+  background: black;
+}
+@media (prefers-color-scheme: dark) {
+  #device {
+    background: black;
+  }
+}
+.editIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.125rem;
+  height: 3.125rem;
+  position: relative;
+  margin: 0px;
+}
+.editIcon svg * {
+  stroke: var(--text);
+}
+.editIcon:focus svg *, .screen:has(.createTask:focus) .editIcon svg *{
+  stroke: var(--highlight-colour);
+}
+.edit-top-bar {
+  padding: 0px;
+}
+.createTask {
+  width: calc(100% - 6.25rem);
+  height: calc(100% - 6.25rem);
+  margin-left: 3.125rem;
+  margin-top: 3.125rem;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border-radius: var(--radius);
+  background: var(--transparent-background);
+  backdrop-filter: blur(var(--blur-amount));
+  box-shadow: 0 3px 10px var(--shadows);
+  transition: var(--transition);
+  scale: 0%;
+  overflow: scroll;
+}
+.createTask:has(*:focus){
+  scale: 100%;
+}
+
+.screen:has(.edit-top-bar .editIcon:focus) .createTask, .createTask:focus {
+  scale: 100%;
+}
+.congrats-message {
+  font-size: 3rem;
+  width: 100%;
+  height: calc(100%);
+  margin-top: -3.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+  pointer-events: none;
+}
+.congrats-message p{
+  text-align: center;
+}
+.themeChanging * {
+  transition: var(--transition);
+}
+.doneBar {
+  background: var(--pannel);
+  width: 100%;
+  height: 3.125rem;
+  position: fixed;
+  bottom: 0px;
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  z-index: 1;
+}
+.createScroller {
+  padding: 0px;
+  height: calc(100% - 3.125rem);
+}
+.doneBar button:nth-child(1){
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: calc(fit-content / var(--button-scale) - (3.125rem - (3.125rem * var(--button-scale))) * 2);
+  height: 3.125rem;
+  scale: var(--button-scale);
+  background: transparent;
+  transition: var(--transition);
+  color: var(--text);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+.doneBar button:nth-child(1):hover{
+  background: var(--hovered-pannel);
+}
+.doneBar button:nth-child(2){
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: calc(fit-content / var(--button-scale) - (3.125rem - (3.125rem * var(--button-scale))) * 2);
+  height: 3.125rem;
+  scale: var(--button-scale);
+  background: transparent;
+  transition: var(--transition);
+  color: var(--text);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+.doneBar button:nth-child(2):hover{
+  background: var(--hovered-pannel);
+}
+
+.mockTask {
+  position: absolute;
+  width: 75%;
+  left: 0px;
+  border-radius: var(--radius);
+  margin-left: 12.5%;
+  min-height: 10px;
+  z-index: 0;
+  background: var(--tabs);
+  box-shadow: 0 3px 10px var(--shadows);
+  overflow: scroll;
+}
+.mockTask:before {
+  content: var(--mockTaskContent);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  max-height: calc(var(--screen-height) - 15.625rem);
+  position: absolute;
+  bottom: 0px;
+}
+
+.createInput {
+  transform: scale(var(--button-scale));
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 3.125rem;
+  text-align: center;
+  width: calc(100% / var(--button-scale) - 20px - (3.125rem - 3.125rem * var(--button-scale)));
+  margin-top: calc((3.125rem - 3.125rem * var(--button-scale)) / 2);
+  margin-left: calc((3.125rem - 3.125rem * var(--button-scale)) / 2);
+  border: 0px;
+  font-family: Arial;
+  resize: none;
+  transform-origin: left top;
+  transition: var(--transition);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+  outline: none;
+  background: transparent;
+  font-size: 1.75rem;
+  outline: none;
+  z-index: 1;
+  color: var(--text);
+}
+
+.createInput:focus {
+  background: var(--hovered-tabs);
+}
+.createInput:hover {
+  background: var(--hovered-tabs);
+}
+.mockTaskDescriptionInput {
+  height: calc(100% - 9.375rem);
+  min-height: 6.25rem;
+}
+.createInput::placeholder {
+  color: var(--text);
+  opacity: 0.5;
+}
+
+.createInput::-ms-input-placeholder {
+  color: var(--text);
+  opacity: 0.5;
+}
+.createInput::-webkit-input-placeholder {
+  color: var(--text);
+  opacity: 0.5;
 }

@@ -1,10 +1,3 @@
-//Root for css variable changing
-var root = document.documentElement;
-
-var screens = document.getElementsByClassName("screen");
-var tabs = document.getElementsByClassName("tab");
-var tabHolder = document.getElementById("tab-holder");
-
 //Search bar suggestions
 var input = document.getElementById("search-input");
 var items = document.getElementById("search-results");

@@ -1,0 +1,39 @@
+input {
+  appearance: none;
+  height: calc(3.125rem * 0.75);
+  font-size: 1.75rem;
+  text-align: center;
+  width: calc(100% - 20px - (3.125rem - 3.125rem * 0.75));
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: -10px;
+  border: 0px;
+  font-family: Arial;
+  resize: none;
+  margin: none;
+  transform-origin: top;
+  margin: calc((3.125rem - 3.125rem * 0.75) / 2);
+  background: white;
+  transition: 0.25s;
+  border-radius: 10px;
+}
+input:focus {
+  outline: none;
+  background: lightgray;
+}
+input:hover {
+  background: lightgray;
+}
+input::placeholder {
+  color: black;
+  opacity: 0.5;
+}
+
+input::-ms-input-placeholder {
+  color: black;
+  opacity: 0.5;
+}
+input::-webkit-input-placeholder {
+  color: black;
+  opacity: 0.5;
+}
