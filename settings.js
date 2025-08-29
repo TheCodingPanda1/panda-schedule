@@ -27,9 +27,6 @@ settingsButton.addEventListener("click", function() {
         `;
         tabHolder.appendChild(tab);
         setSvgSize();
-        setInterval(function() {
-            setSvgSize();
-        }, 1);
         main.innerHTML += /*html*/`
 <div id = "settings-screen" class = "screen">
 <div class = "scroller" id = "settings-scroller">
@@ -40,17 +37,17 @@ settingsButton.addEventListener("click", function() {
 <div class = "folder-holder">
 <div class = "theme-option">
 <div id = "themeChangeHolder">
-Theme: 
-<div class = "input" tabindex = "1" onfocusout = "closeInput(this)" id = "themeChangeSelect" value = "Device">
-<div tabindex="1">
+Theme:
+<div class = "input" tabindex = "1" id = "themeChangeSelect" value = "Device" normalorder='["deviceThemeOption", "lightThemeOption", "darkThemeOption"]'>
+<div tabindex="1" id = "deviceThemeOption">
 Device
 <div class = "colour-widget" id = "device"></div>
 </div>
-<div tabindex="1">
+<div tabindex="1" id = "lightThemeOption">
 Light
 <div class = "colour-widget" id = "light"></div>
 </div>
-<div tabindex="1">
+<div tabindex="1" id = "darkThemeOption">
 Dark
 <div class = "colour-widget" id = "dark"></div>
 </div>

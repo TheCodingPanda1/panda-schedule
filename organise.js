@@ -55,7 +55,8 @@ document.addEventListener("mouseup", function(){
     if(interval){
         clearInterval(interval);
         interval = null;
-        mockTask.innerHTML = /*html*/`<input type = "text" class = 'createInput mockTaskTitleInput' placeholder = 'Title'><textarea class = 'createInput mockTaskDescriptionInput' placeholder = 'Description (optional)'></textarea><div class = 'select'>Subject (select)<div>New task</div></div>`;
+        mockTask.innerHTML = /*html*/`<input type = "text" class = 'createInput mockTaskTitleInput' placeholder = 'Title'><textarea class = 'createInput mockTaskDescriptionInput' placeholder = 'Description (optional)'></textarea><div class = 'input' tabindex="1" onfocusout = "closeInput(this)"><div class = "placeholder">Subject (select)</div><div>New task</div><div>Another Option</div></div>`;
+        setUpInputs();
         root.style.setProperty("--mockTaskContent", "");
     }
 });

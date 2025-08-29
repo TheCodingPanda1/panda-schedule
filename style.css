@@ -33,7 +33,7 @@ html {
   width: 100%;
   height: 100%;
 }
-.dark-mode {
+.document-dark-mode {
   --background: rgb(25, 25, 25);
   --hovered-background: rgb(75, 75, 75);
   --pannel: rgb(30, 30, 30);
@@ -371,7 +371,7 @@ body {
   height: 100%;
   scroll-snap-align: start;
   overflow: hidden;
-  scroll-snap-stop: start;
+  scroll-snap-stop: always;
 }
 .scroller {
   position: absolute;

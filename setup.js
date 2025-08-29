@@ -87,9 +87,9 @@ function changeMode() {
         isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
     if(isDarkMode){
-        root.classList.add("dark-mode");
+        root.classList.add("document-dark-mode");
     } else {
-        root.classList.remove("dark-mode");
+        root.classList.remove("document-dark-mode");
     }
     setTimeout(function() {
         root.style.setProperty("--transition", "0.25s");
