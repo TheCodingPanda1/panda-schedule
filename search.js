@@ -14,8 +14,12 @@ const searchItems = [
     "Sample Schedule",
     "another thing for testing",
     "an",
-    "lan"
+    "lan",
+    "Settings"
 ];
+const pinned = [
+    ["Settings", ]
+]
 const reloadSuggestions = function(){
     items.innerHTML = "";
     var values = [];

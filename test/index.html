@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixed Scroll Height Example</title>
+  <style>
+    .scroll-container {
+      height: 50px;             /* visible height */
+      overflow-y: auto;         /* enable vertical scrolling */
+      position: relative;       /* required for pseudo-element */
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-family: sans-serif;
+    }
+
+    .scroll-container::after {
+      content: "";
+      display: block;
+      height: 1000px;           /* fake scroll height */
+      visibility: hidden;       /* don't show anything */
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Scroll Container with Fixed Scroll Height</h2>
+  <div class="scroll-container">
+    Hello World
+  </div>
+
+</body>
+</html>

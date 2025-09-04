@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../setup.js" defer></script>
+    <script src="../input.js" defer></script>
+    <script src="./settingsHandle.js" defer></script>
+</head>
+<body>
+    <div class = "scroller" id = "settings-scroller">
+        <div class = "scroll-point" style = "left: 0px;"></div>
+        <div id = "folder-holder">
+            <div class = "settings-folder">
+                <p>Appearance</p>
+                <div class = "folder-holder" number = "1">
+                    <div class = "theme-option">
+                        <div id = "themeChangeHolder">
+                            Theme: <div class = "input" tabindex = "1" id = "themeChangeSelect" value = "Device" normalorder='["deviceThemeOption", "lightThemeOption", "darkThemeOption"]'>
+                                <div tabindex="1" id = "deviceThemeOption">
+                                    Device <div class = "colour-widget" id = "device"></div>
+                                </div>
+                                <div tabindex="1" id = "lightThemeOption">
+                                    Light <div class = "colour-widget" id = "light"></div>
+                                </div>
+                                <div tabindex="1" id = "darkThemeOption">
+                                    Dark <div class = "colour-widget" id = "dark"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "fixer"></div>
+    </div>
+    <div id = "settings-top-bar" class = "control-top-bar">
+        <p>Settings</p>
+    </div>
+</body>
+</html>

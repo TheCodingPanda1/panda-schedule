@@ -3,7 +3,6 @@
 var root = document.documentElement;
 var mouseX = 0;
 var mouseY = 0;
-
 var customTheme = false;
 if(!localStorage.getItem("theme")){
     localStorage.setItem("theme", "device");
@@ -18,9 +17,16 @@ var main = document.getElementById("main");
 var scale = 0.75;
 var selectedGradients = document.getElementsByClassName("selected-gradient");
 var firstThemeChange = true;
-main.scrollLeft = 0;
+if(main){
+    main.scrollLeft = 0;
+}
 function pxify(num){
-    return num * 16;
+    let testEl = document.createElement("div");
+    testEl.style.width = "1rem";
+    testEl.style.height = "1px";
+    document.body.appendChild(testEl);
+    let remSize = testEl.getBoundingClientRect().width;
+    return num * remSize;
 }
 function pxCssVar (variable){
     let element = document.createElement("div");
@@ -39,12 +45,14 @@ function setSvgSize(){
     }
 }
 var set0 = setInterval(() => {
-    if(main.scrollLeft == 0){
-        clearInterval(set0);
+    if(main){
+        if(main.scrollLeft == 0){
+            clearInterval(set0);
+        } else{
+            main.scrollLeft = 0;
+        }
     }
-    if(main.scrollLeft != 0){
-        main.scrollLeft = 0;
-    }
+    
 }, 100);
 function setScreenPos() {
     for(var i = 0; i < screens.length; i ++){
