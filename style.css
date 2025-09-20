@@ -1,11 +1,12 @@
 :root {
-  --background: rgb(225, 225, 225);
-  --hovered-background: rgb(250, 250, 250);
-  --pannel: rgb(200, 200, 200);
-  --tabs: rgb(175, 175, 175);
+  --background: rgb(210, 210, 210);
+  --hovered-background: rgb(240, 240, 240);
+  --pannel: treansparent;
+  --tabs: transparent;
   --text: rgb(50, 50, 50);
-  --hovered-pannel: rgb(225, 225, 225);
-  --hovered-tabs: rgb(200, 200, 200);
+  --hovered-pannel: var(--hovered-background);
+  --selected-pannel: rgba(240, 240, 240, 0.9);
+  --hovered-tabs: var(--hovered-background);
   --active-tabs: var(--background);
   --shadows: rgb(100, 100, 100);
   --borders: transparent;
@@ -22,10 +23,13 @@
   --maximum-tab-width: 100%;
   --tab-width: calc(33% / var(--button-scale));
   --tab-margin: calc((3.125rem - (3.125rem * var(--button-scale))) / 2 / var(--button-scale));
-  --blur-amount: 15px;
+  --blur-amount: 5px;
   --highlight-colour: rgb(0, 0, 255);
   --slider-height: 0.4375rem;
-  --highlight-text: rgb(200, 200, 200);
+  --highlight-text: var(--hovered-pannel);
+  --main: rgb(240, 240, 240);
+  --hovered-main: rgb(255, 255, 255);
+  --shadow-weight: 5px;
 }
 html {
   content-visibility: auto;
@@ -33,20 +37,18 @@ html {
   height: 100%;
 }
 .document-dark-mode {
-  --background: rgb(25, 25, 25);
-  --hovered-background: rgb(75, 75, 75);
-  --pannel: rgb(30, 30, 30);
-  --tabs: rgb(50, 50, 50);
+  --background: rgb(50, 50, 50);
+  --hovered-background: rgb(100, 100, 100);
   --text: rgb(200, 200, 200);
-  --hovered-pannel: rgb(100, 100, 100);
-  --hovered-tabs: rgb(100, 100, 100);
-  --active-tabs: var(--background);
-  --shadows: rgb(150, 150, 150);
+  --shadows: rgb(225, 225, 225);
   --borders: transparent;
   --right-width: 280px;
-  --transparent-background: rgba(75, 75, 75, 0);
   --highlight-colour: rgb(0, 200, 255);
-}
+  --highlight-text: rgb(25, 25, 25);
+  --main: rgb(10, 10, 10);
+  --hovered-main: rgb(100, 100, 100);
+  --selected-pannel: rgba(100, 100, 100, 0.9);
+;}
 body {
   position: absolute;
   left: 0px;
@@ -57,15 +59,19 @@ body {
   padding: 0px;
   color: var(--text);
   content-visibility: auto;
-  background: var(--background)
+  background: var(--background);
 }
 #top-bar {
-  width: 100%;
+  width: calc((100% - (3.125rem - 3.125rem * var(--button-scale))) / var(--button-scale));
   height: 3.125rem;
   background: var(--pannel);
   display: block;
-  box-shadow: 0 0 10px var(--shadows);
-  z-index: 2;
+  z-index: 3;
+  border-radius: var(--radius);
+  position: absolute;
+  scale: var(--button-scale);
+  transform-origin: left center;
+  left: calc((3.125rem - 3.125rem * var(--button-scale)) / 2);
 }
 #top-bar button {
   position: absolute;
@@ -81,7 +87,6 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: var(--radius);
-  scale: var(--button-scale);
   color: var(--text);
 }
 #top-bar button:hover {
@@ -90,8 +95,14 @@ body {
 #settings-button {
   left: 0px;
 }
+#settings-button div:not(#settings-button div:nth-child(1)):not(#settings-button div:nth-child(2))::before{
+  background: var(--background);
+}
 #settings-button:hover div:not(#settings-button div:nth-child(1)):not(#settings-button div:nth-child(2))::before {
   background: var(--hovered-pannel);
+}
+#settings-button:active div:not(#settings-button div:nth-child(1)):not(#settings-button div:nth-child(2))::before{
+  transition: 0s;
 }
 .gear:nth-child(1){
   width: 0.625rem;
@@ -149,20 +160,50 @@ body {
 .gear:nth-child(9) {
   rotate: 315deg;
 }
-#settings-button:active{
-  scale: 1;
-  transition: 0s;
-}
 #top-bar button:active {
   transition: 0s;
-  scale: calc(var(--button-scale) * 1.1);
+  scale: 1.1;
+}
+#pannelButton {
+  left: calc(3.125rem + (3.125rem - 3.125rem * var(--button-scale)) / 2 / var(--button-scale));
+}
+#pannelButton div:not(#pannelButton div div){
+  width: 3rem;
+  height: 3rem;
+  border: calc(0.09375rem / 0.6) solid var(--text);
+  border-radius: var(--radius);
+  position: absolute;
+  scale: 0.6;
+}
+#pannelButton div:nth-child(1)::before{
+  content: "";
+  position: absolute;
+  left: 40%;
+  top: 0px;
+  width: calc(0.09375rem / 0.6);
+  height: 100%;
+  background: var(--text);
+}
+#pannelButton div div{
+  position: absolute;
+  left: 5px;
+  width: calc(40% - 10px);
+  height: calc(0.09375rem / 0.6);
+  background: var(--text);
+}
+#pannelButton div div:nth-child(1){
+  top: 25%;
+}
+#pannelButton div div:nth-child(2){
+  top: 50%;
+}
+#pannelButton div div:nth-child(3){
+  top: 75%;
 }
 #search-bar {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  scale: var(--button-scale);
-  width: calc((100% - 6.250rem) / var(--button-scale));
   height: 3.125rem;
   padding: 0px;
   background: var(--pannel);
@@ -171,16 +212,15 @@ body {
   font-family: "Times New Roman", times, serif;
   cursor: pointer;
   position: absolute;
-  left: 3.125rem;
+  left: calc(6.25rem + (3.125rem - 3.125rem * var(--button-scale)) / var(--button-scale));
   content-visibility: auto;
   min-height: 3.125rem;
   border-radius: var(--radius);
-  transform-origin: left top;
   z-index: 1;
   position: absolute;
-  top: calc((3.125rem - 3.125rem * var(--button-scale))/2);
-  max-height: calc(100% / var(--button-scale) - (3.125rem - 3.125rem * var(--button-scale)));
+  max-height: calc(var(--screen-height) / var(--button-scale) - (3.125rem - 3.125rem * var(--button-scale)));
   overflow: scroll;
+  width: calc(100% - 12.5rem - (3.125rem - 3.125rem * var(--button-scale)) * 2 / var(--button-scale));
 }
 #search-bar input {
   width: calc(100%);
@@ -197,7 +237,7 @@ body {
   color: var(--text);
 }
 #search-bar:has(input:focus){
-  z-index: 3;
+  z-index: 5;
 }
 #search-bar input:focus {
   outline: none;
@@ -229,8 +269,8 @@ body {
   cursor: text;
   outline: none;
   height: var(--search-bar-height);
-  background: var(--hovered-pannel);
-  box-shadow: 0 0 0.25rem var(--shadows);
+  background: var(--selected-pannel);
+  box-shadow: 0 2px var(--shadow-weight) var(--shadows);
   border-radius: var(--nec-radius);
   backdrop-filter: blur(var(--blur-amount));
 }
@@ -267,10 +307,21 @@ body {
   font-size: 2.5rem;
   font-family: "Times New Roman", times, serif;
 }
+#editIcon {
+  right: calc(3.125rem + (3.125rem - 3.125rem * var(--button-scale)) / 2 / var(--button-scale));
+  stroke: var(--text);
+}
+#editIcon svg {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  scale: calc(1 / var(--button-scale));
+  stroke-width: 0.09375rem;
+}
 #tab-bar {
   position: absolute;
   left: 0px;
-  top: 3.125rem;
+  top: calc(3.125rem + (3.125rem * var(--button-scale) - 3.125rem) / 2);
   width: calc(100%);
   height: 3.125rem;
   background: var(--tabs);
@@ -278,12 +329,11 @@ body {
   align-items: center;
   justify-content: left;
   z-index: 2;
-  box-shadow: inset 0px 10px 10px -10px var(--shadows), inset 0 -7px 10px -10px var(--shadows);
 }
 #tab-bar div:not(.tab):not(.tab div):not(#slider) {
-  width: calc(100% / var(--button-scale) + var(--tab-margin));
+  width: calc((100%) / var(--button-scale) - (3.125rem - 3.125rem * var(--button-scale)));
   height: 3.125rem;
-  margin-left: calc(0px - var(--tab-margin) / 2 * var(--button-scale));
+  margin-left: calc((3.125rem - 3.125rem * var(--button-scale)) / 2 * var(--button-scale));
   padding: 0px;
   display: flex;
   align-items: center;
@@ -326,23 +376,22 @@ body {
   z-index: -1;
 }
 .selected-gradient {
+  width: 100%;
+  height: 100%;
+  background: var(--main);
+  border-radius: var(--radius);
   position: absolute;
-  left: calc(0px - var(--radius));
-  height: calc(100% / var(--button-scale));
-  pointer-events: none;
-  z-index: 1;
-  margin: 0px;
-  padding: 0px;
-  filter: drop-shadow(0px 0px 10px var(--shadows));
+  box-shadow: 0 2px var(--shadow-weight) var(--shadows);
 }
 #main {
   position: absolute;
-  top: 6.25rem;
+  top: calc(6.25rem - (3.125rem - 3.125rem * var(--button-scale)) / 2);
   left: 0px;
   width: calc(100%);
   height: calc(100% - 6.25rem);
   background: var(--background);
   overflow-x: scroll;
+  overflow-y: visible;
   -ms-overflow-style: none;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
@@ -355,39 +404,38 @@ body {
   position: absolute;
   width: var(--tab-width);
   max-width: var(--maximum-tab-width);
-  top: calc(0px - (3.125rem - 3.125rem * var(--button-scale)) / 2 / var(--button-scale));
+  top: 0px;
   background: var(--highlight-colour);
-  box-shadow: 0 0 10px var(--shadows);
   z-index: 3;
   left: 0px;
   margin: 0px;
   padding: 0px;
   border-top-left-radius: var(--radius);
   border-top-right-radius: var(--radius);
-  box-shadow: 0px 0px 10px var(--shadows);
   height: var(--radius);
   border: none;
   padding: 0px;
   clip-path: inset(-10px -10px calc(var(--radius) - var(--slider-height)) -10px);
 }
 #main .screen {
-  position: absolute;
-  top: 0px;
-  width: var(--screen-width);
-  height: calc(var(--screen-height) - 6.25rem);
-  height: 100%;
-  scroll-snap-align: start;
-  overflow: hidden;
-}
-.scroller {
-  position: absolute;
-  left: 0px;
-  top: 0px;
   width: 100%;
   height: 100%;
+  position: absolute;
+  top: 0px;
+  scroll-snap-align: start;
+}
+.scroller:not(.scroller .scroller) {
+  position: absolute;
+  top: 0px;
+  width: calc(var(--screen-width) - (3.125rem - 3.125rem * var(--button-scale)));
+  height: calc(100% - (3.125rem - 3.125rem * var(--button-scale)) / 2 * var(--button-scale));
+  margin-left: calc((3.125rem - 3.125rem * var(--button-scale)) / 2);
+  overflow: hidden;
+  background: var(--main);
+  border-radius: var(--radius);
+  box-shadow: 0 2px var(--shadow-weight) var(--shadows);
   overflow: scroll;
-  padding-top: 3.125rem;
-  z-index: 0;
+  content-visibility: auto;
 }
 @keyframes tabExpand {
   from {
@@ -400,7 +448,7 @@ body {
 .control-top-bar {
   height: 3.125rem;
   background: var(--background);
-  box-shadow: 0 2px 10px var(--shadows);
+  box-shadow: 0 2px var(--shadow-weight) var(--shadows);
   scale: var(--button-scale);
   border-radius: var(--radius);
   width: fit-content;
@@ -420,12 +468,13 @@ body {
 }
 #settings-screen {
   font-size: 1.25rem;
+  border: none;
 }
 .fixer {
   height: calc(3.125rem + 5px);
 }
 .settings-folder {
-  width: calc(var(--screen-width) / var(--button-scale) - var(--tab-margin) * 2);
+  width: calc(100% / var(--button-scale) - (3.125rem - 3.125rem * var(--button-scale)) / var(--button-scale));
   height: 3.125rem;
   display: flex;
   scale: var(--button-scale);
@@ -433,36 +482,43 @@ body {
   cursor: pointer;
   border-radius: var(--radius);
   transform-origin: left center;
-  margin-left: calc(var(--tab-margin) * var(--button-scale));
+  margin-left: calc((3.125rem - 3.125rem * var(--button-scale)) / 2);
   align-items: center;
   justify-content: center;
   font-size: 2rem;
   overflow: visible;
 }
+#settings-top-bar p {
+  cursor: pointer;
+}
+#settings-top-bar p:hover {
+  color: var(--highlight-colour);
+  text-decoration: underline;
+}
 .settings-folder:hover {
-  background: var(--hovered-background);
+  background: var(--hovered-main);
+}
+.hasVisible {
+  background: var(--hovered-main);
+  box-shadow: 0 2px var(--shadow-weight) var(--shadows);
 }
 .settings-folder::before {
   content: ">";
   font-size: 2rem;
-  color: transparent;
+  color: var(--text);
   transition: var(--transition);
   position: absolute;
   right: 5px;
-}
-.settings-folder:hover::before {
-  color: var(--text);
 }
 #settings-scroller {
   overflow-x: scroll;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
-  display: grid;
-  grid-template-columns: var(--screen-width) var(--screen-width) var(--screen-width) var(--screen-width) 
 }
+
 .folder-holder {
   display: none;
-  width: calc(var(--screen-width) / var(--button-scale));
+  width: 100%;
   height: fit-content;
   position: absolute;
   left: calc(var(--screen-width) / var(--button-scale));
@@ -483,36 +539,37 @@ body {
     border-radius: var(--radius);
     content-visibility: auto;
     display: inline-block;
-    height: calc(3.125rem * var(--button-scale));
+    height: calc(3.125rem);
     transition: var(--transition);
     position: relative;
     backdrop-filter: blur(var(--blur-amount));
     -webkit-backdrop-filter: blur(var(--blur-amount));
 }
 .input div:not(.colour-widget) {
-    height: calc(3.125rem * var(--button-scale) - 20px);
-    padding: 10px 10px;
+    height: calc(3.125rem - 20px);
+    padding: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: var(--transition);
-    padding-right: 30px;
+    padding-right: 1.875rem;
 }
 .input div:not(.colour-widget):hover {
     background: var(--hovered-background);
 }
-.selected {
-    box-shadow: 0 3px 10px var(--shadows);
+.selected:focus {
+    box-shadow: 0 2px var(--shadow-weight) var(--shadows);
     height: var(--menu-height);
-    background: var(--transparent-background);
-    backdrop-filter: blur(var(--blur-amount))
+    backdrop-filter: blur(var(--blur-amount));
+    background: var(--hovered-background);
 }
-.selected div:not(.colour-widget) {
+.selected:focus div:not(.colour-widget) {
   transition: none;
   border-radius: var(--radius);
+  background: var(--hovered-background)
 }
-.selected div:not(.colour-widget):hover {
+.selected:focus div:not(.colour-widget):hover {
   background: var(--highlight-colour);
   color: var(--highlight-text)
 }
@@ -523,7 +580,7 @@ body {
   align-items: center;
 }
 #themeChangeHolder .selected {
-  margin-top: calc(3.125rem * var(--button-scale) * 2);
+  margin-top: calc(3.125rem * 2);
 }
 .input::before {
   content: "";
@@ -593,7 +650,7 @@ body {
   border-radius: var(--radius);
   background: var(--transparent-background);
   backdrop-filter: blur(var(--blur-amount));
-  box-shadow: 0 3px 10px var(--shadows);
+  box-shadow: 0 2px var(--shadow-weight) var(--shadows);
   transition: var(--transition);
   scale: 0%;
   overflow: scroll;
@@ -682,7 +739,7 @@ body {
   min-height: 10px;
   z-index: 0;
   background: var(--tabs);
-  box-shadow: 0 3px 10px var(--shadows);
+  box-shadow: 0 2px var(--shadow-weight) var(--shadows);
   overflow: scroll;
 }
 .mockTask:before {
@@ -735,7 +792,6 @@ body {
   color: var(--text);
   opacity: 0.5;
 }
-
 .createInput::-ms-input-placeholder {
   color: var(--text);
   opacity: 0.5;
@@ -752,10 +808,13 @@ body {
     top: 50px;
     height: calc(100% - 50px);
   }
+  .scroller:not(.scroller .scroller){
+    bottom: calc((3.125rem - 3.125rem * var(--button-scale)) / 2 * var(--button-scale));
+    height: auto;
+  }
   #search-bar {
-    left: calc((3.125rem - 3.125rem * var(--button-scale)) / 2);
-    width: calc((100% - (3.125rem - 3.125rem * var(--button-scale))) / var(--button-scale));
-    
+    left: 0;
+    width: calc(var(--screen-width) / var(--button-scale) - (3.125rem - 3.125rem * var(--button-scale)) / var(--button-scale))
   }
   #top-bar button {
     display: none;

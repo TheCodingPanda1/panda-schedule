@@ -18,13 +18,7 @@ for(var i = 0; i < tabs.length; i ++){
 }
 
 // The functions
-function checkTabNum(){
-    for(var i = 0; i < tabs.length; i ++){
-        if(tabInputs[i].checked){
-            return i;
-        }
-    }
-}
+
 function getContentWidth(element){
     return element;
 }
@@ -45,11 +39,7 @@ function changeSliderPos(){
     if(Math.round(main.scrollLeft / document.body.getBoundingClientRect().width) != main.scrollLeft / document.body.getBoundingClientRect().width){
         neededTransition = "0s";
     }
-    console.log(Math.round(main.scrollLeft / document.body.getBoundingClientRect().width) != main.scrollLeft / document.body.getBoundingClientRect().width);
     slider.style.transition = neededTransition;
-    let from = tabs[0].offsetLeft;
-    let to = tabs[tabs.length - 1].offsetLeft;
-    let minusAmount = 0;
     var scrollAmount = main.scrollLeft / document.body.getBoundingClientRect().width - Math.floor(main.scrollLeft / document.body.getBoundingClientRect().width);
     let fromElement = tabs[Math.floor(main.scrollLeft / (document.body.getBoundingClientRect().width))];
     if(Math.floor(main.scrollLeft / (document.body.getBoundingClientRect().width)) > tabs.length - 1){
@@ -68,17 +58,21 @@ function changeSliderPos(){
         scrollAmount = 0;
     }
     for(var i = 0; i < tabs.length; i ++){
-        tabs[i].getElementsByTagName("svg")[0].style.opacity = 0;
+        tabs[i].getElementsByClassName("selected-gradient")[0].style.opacity = 0;
     }
-    toElement.getElementsByTagName("svg")[0].style.opacity = scrollAmount;
-    fromElement.getElementsByTagName("svg")[0].style.opacity = 1 - scrollAmount;
-    const svg = fromElement.getElementsByTagName("svg")[0];
+    toElement.getElementsByTagName("div")[0].style.opacity = scrollAmount;
+    fromElement.getElementsByTagName("div")[0].style.opacity = 1 - scrollAmount;
+    const svg = fromElement.getElementsByTagName("div")[0];
     svg.style.transform = "translateZ(0)";
     slider.style.left = scrollAmount * (toElement.offsetLeft - fromElement.offsetLeft) + fromElement.offsetLeft + "px";
 }
+window.addEventListener("resize", function() {
+    root.style.setProperty("--screen-width", document.body.getBoundingClientRect().width + "px");
+    setScreenPos();
+    changeSliderPos();
+});
 changeSliderPos();
 main.addEventListener("scroll", changeSliderPos);
-setSvgSize();
 function setClicks(){
     for(var i = 0; i < tabs.length; i ++){
         tabs[i].addEventListener("click", function(){
@@ -100,7 +94,6 @@ window.addEventListener("resize", function() {
     root.style.setProperty("--screen-height", document.body.getBoundingClientRect().height + "px");
     setScreenPos();
     changeSliderPos();
-    setSvgSize();
 });
 window.addEventListener("resize", function(){
     root.style.setProperty("--tab-width", tabs[0].getBoundingClientRect().width / scale + "px");

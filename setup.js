@@ -4,6 +4,10 @@ var root = document.documentElement;
 var mouseX = 0;
 var mouseY = 0;
 var customTheme = false;
+var movedAmount = 0;
+var direction = 0;
+var trimAmount = 0;
+var transition = "0.25s";
 if(!localStorage.getItem("theme")){
     localStorage.setItem("theme", "device");
 }
@@ -14,7 +18,6 @@ var tabHolder = document.getElementById("tab-holder");
 root.style.setProperty("--screen-width", document.body.getBoundingClientRect().width + "px");
 root.style.setProperty("--screen-height", document.body.getBoundingClientRect().height + "px");
 var main = document.getElementById("main");
-var scale = 0.75;
 var selectedGradients = document.getElementsByClassName("selected-gradient");
 var firstThemeChange = true;
 if(main){
@@ -37,13 +40,6 @@ function pxCssVar (variable){
     document.body.removeChild(element);
     return result;
 }
-function setSvgSize(){
-    tabWidth = tabs[0].getBoundingClientRect().width / scale;
-    for(var i = 0; i < selectedGradients.length; i ++){
-        selectedGradients[i].style.width = pxCssVar("radius") * 2 + pxify(tabWidth) + "px";
-        selectedGradients[i].innerHTML = `<path d = "M${pxCssVar("radius")} ${pxCssVar("radius")} a ${pxCssVar("radius")} ${pxCssVar("radius")} 0 0 1 ${pxCssVar("radius")} ${0 - pxCssVar("radius")} l ${tabWidth - pxCssVar("radius") * 2} 0 a ${pxCssVar("radius")} ${pxCssVar("radius")} 0 0 1 ${pxCssVar("radius")} ${pxCssVar("radius")} L ${tabWidth + pxCssVar("radius")} ${pxify(3.125) / scale - pxCssVar("radius")} a ${pxCssVar("radius")} ${pxCssVar("radius")} 0 0 0 ${pxCssVar("radius")} ${pxCssVar("radius")} L 0 ${pxify(3.125) / scale} a ${pxCssVar("radius")} ${pxCssVar("radius")} 0 0 0 ${pxCssVar("radius")} ${0 - pxCssVar("radius")} z" stroke = "none" fill="var(--active-tabs)"/>`;
-    }
-}
 var set0 = setInterval(() => {
     if(main){
         if(main.scrollLeft == 0){
@@ -60,14 +56,8 @@ function setScreenPos() {
     }
 }
 setScreenPos();
-window.addEventListener("resize", function() {
-    root.style.setProperty("--screen-width", document.body.getBoundingClientRect().width + "px");
-    setScreenPos();
-    changeSliderPos();
-});
 for(var i = 0; i < tabs.length; i ++){
-    tabs[i].getElementsByTagName("svg")[0].style.opacity = 0;
-    tabs[0].getElementsByTagName("svg")[0].style.opacity = 1;
+    tabs[i].getElementsByTagName("div")[0].style.opacity = 0;
 }
 var isDarkMode;
 if(localStorage.getItem("theme")){
@@ -100,7 +90,7 @@ function changeMode() {
         root.classList.remove("document-dark-mode");
     }
     setTimeout(function() {
-        root.style.setProperty("--transition", "0.25s");
+        root.style.setProperty("--transition", transition);
         document.body.setAttribute("class", "");
     }, 1);
 }

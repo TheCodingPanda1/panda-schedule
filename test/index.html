@@ -2,31 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fixed Scroll Height Example</title>
+  <title>:has() Only for Visible Children</title>
   <style>
-    .scroll-container {
-      height: 50px;             /* visible height */
-      overflow-y: auto;         /* enable vertical scrolling */
-      position: relative;       /* required for pseudo-element */
-      border: 1px solid #ccc;
+    /* common styling so you can see the containers */
+    div {
+      border: 2px solid blue;
       padding: 10px;
-      font-family: sans-serif;
+      margin: 10px;
     }
 
-    .scroll-container::after {
-      content: "";
-      display: block;
-      height: 1000px;           /* fake scroll height */
-      visibility: hidden;       /* don't show anything */
+    /* hide paragraphs marked hidden */
+    .hidden {
+      display: none;
+    }
+
+    /* only divs that have a p WITHOUT the .hidden class */
+    div:has(p:not(.hidden)) {
+      background-color: lightgreen;
     }
   </style>
 </head>
 <body>
+  <h2>Visible vs. Hidden &lt;p&gt; with :has()</h2>
 
-  <h2>Scroll Container with Fixed Scroll Height</h2>
-  <div class="scroll-container">
-    Hello World
+  <!-- THIS one has a visible <p>, so it turns green -->
+  <div>
+    <p>This paragraph is visible.</p>
   </div>
 
+  <!-- THIS one’s <p> is hidden via .hidden, so the div stays uncolored -->
+  <div>
+    <p class="hidden">This paragraph is hidden.</p>
+  </div>
 </body>
 </html>

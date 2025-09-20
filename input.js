@@ -8,9 +8,6 @@ function setUpInputs(){
     selects = [].slice.call(elementSelects);
     for (let i = 0; i < selects.length; i++) {
         let select = selects[i];
-        selects[i].addEventListener("focusout", function(){
-            closeInput(this);
-        });
         
         // Store initial order
         let elements = Array.from(select.children);
