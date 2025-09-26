@@ -73,7 +73,7 @@ const reloadSuggestions = function(){
         input.setAttribute("placeholder", "Panda Schedule");
     });
     if(highest == 0 && input.value.length != 0 && input.value != "?" || input.value.length / 5 > highest && input.value.length != 0 && input.value != "?"){
-        items.innerHTML = "<span>No results found</span>";
+        items.innerHTML = "<span><p>No results found</p></span>";
         numberOfHighest = 1;
         root.style.setProperty("--search-bar-height", (numberOfHighest + 1) * 50 + "px");
     }
@@ -87,7 +87,7 @@ function setPinnedItems () {
     
     for(let i = 0; i < pinned.length; i ++){
         let div = document.createElement("div");
-        div.innerHTML = pinned[i][0];
+        div.innerHTML = `<p>${pinned[i][0]}</p>`;
         items.appendChild(div);
     }
     root.style.setProperty("--search-bar-height", (pinned.length + 1) * 50 + "px")

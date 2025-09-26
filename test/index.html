@@ -2,37 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>:has() Only for Visible Children</title>
-  <style>
-    /* common styling so you can see the containers */
-    div {
-      border: 2px solid blue;
-      padding: 10px;
-      margin: 10px;
-    }
-
-    /* hide paragraphs marked hidden */
-    .hidden {
-      display: none;
-    }
-
-    /* only divs that have a p WITHOUT the .hidden class */
-    div:has(p:not(.hidden)) {
-      background-color: lightgreen;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-  <h2>Visible vs. Hidden &lt;p&gt; with :has()</h2>
-
-  <!-- THIS one has a visible <p>, so it turns green -->
-  <div>
-    <p>This paragraph is visible.</p>
-  </div>
-
-  <!-- THIS one’s <p> is hidden via .hidden, so the div stays uncolored -->
-  <div>
-    <p class="hidden">This paragraph is hidden.</p>
-  </div>
+  <iframe src="../settings"></iframe>
 </body>
 </html>

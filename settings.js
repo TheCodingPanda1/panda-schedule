@@ -30,10 +30,10 @@ settingsButton.addEventListener("click", function() {
     }
     neededTransition = "var(--transition)";
     if(settingsOpen){
-        main.scrollTo(settingsPos * document.body.getBoundingClientRect().width, 0);
+        main.scrollTo(settingsPos * sd.width, 0);
     }
     else{
-        newTab("<p>Settings</p> <div class = 'selected-gradient'></div>", "<iframe class = 'screen' id = 'settings-screen' src='./settings/index.html'></iframe>");
+        newTab("<p>Settings</p> <div class = 'selected-gradient'></div>", "./settings/index.html", "settings-screen");
         main.scrollTo(main.scrollWidth, 0);
     } 
     setClicks();
@@ -63,7 +63,8 @@ settingsButton.addEventListener("click", function() {
     window.addEventListener("resize", setUpSettingsFolders);       
 });
 function setThemeChange(){
-    themeChangeSelect.addEventListener("click", function(){
+    themeChangeSelect.addEventListener("mousedown", function(e){
+        e.stopPropagation();
         var value = themeChangeSelect.value.replace("\n", "").replace("\r", "");
         if(value == "Device"){
             isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;

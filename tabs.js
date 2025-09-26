@@ -36,24 +36,24 @@ function findWhichElement(element, array){
 }
 var lastScrollLeft = 0;
 function changeSliderPos(){
-    if(Math.round(main.scrollLeft / document.body.getBoundingClientRect().width) != main.scrollLeft / document.body.getBoundingClientRect().width){
+    if(Math.round(main.scrollLeft / sd.width) != main.scrollLeft / sd.width){
         neededTransition = "0s";
     }
     slider.style.transition = neededTransition;
-    var scrollAmount = main.scrollLeft / document.body.getBoundingClientRect().width - Math.floor(main.scrollLeft / document.body.getBoundingClientRect().width);
-    let fromElement = tabs[Math.floor(main.scrollLeft / (document.body.getBoundingClientRect().width))];
-    if(Math.floor(main.scrollLeft / (document.body.getBoundingClientRect().width)) > tabs.length - 1){
+    var scrollAmount = main.scrollLeft / sd.width - Math.floor(main.scrollLeft / sd.width);
+    let fromElement = tabs[Math.floor(main.scrollLeft / (sd.width))];
+    if(Math.floor(main.scrollLeft / (sd.width)) > tabs.length - 1){
         fromElement = tabs[tabs.length - 1];
     }
-    if(Math.floor(main.scrollLeft / document.body.getBoundingClientRect().width) < 0){
+    if(Math.floor(main.scrollLeft / sd.width) < 0){
         fromElement = tabs[0];
         scrollAmount = 0;
     }
-    let toElement = tabs[Math.ceil(main.scrollLeft / (document.body.getBoundingClientRect().width))];
-    if(Math.ceil(main.scrollLeft / (document.body.getBoundingClientRect().width)) > tabs.length - 1){
+    let toElement = tabs[Math.ceil(main.scrollLeft / (sd.width))];
+    if(Math.ceil(main.scrollLeft / (sd.width)) > tabs.length - 1){
         toElement = tabs[tabs.length - 1]; 
     }
-    if(Math.ceil(main.scrollLeft / (document.body.getBoundingClientRect().width)) < 0){
+    if(Math.ceil(main.scrollLeft / (sd.width)) < 0){
         toElement = tabs[0];
         scrollAmount = 0;
     }
@@ -67,7 +67,7 @@ function changeSliderPos(){
     slider.style.left = scrollAmount * (toElement.offsetLeft - fromElement.offsetLeft) + fromElement.offsetLeft + "px";
 }
 window.addEventListener("resize", function() {
-    root.style.setProperty("--screen-width", document.body.getBoundingClientRect().width + "px");
+    root.style.setProperty("--screen-width", sd.width + "px");
     setScreenPos();
     changeSliderPos();
 });
@@ -90,8 +90,8 @@ function setClicks(){
 }
 setClicks();
 window.addEventListener("resize", function() {
-    root.style.setProperty("--screen-width", document.body.getBoundingClientRect().width + "px");
-    root.style.setProperty("--screen-height", document.body.getBoundingClientRect().height + "px");
+    root.style.setProperty("--screen-width", sd.width + "px");
+    root.style.setProperty("--screen-height", sd.height + "px");
     setScreenPos();
     changeSliderPos();
 });

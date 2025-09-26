@@ -12,31 +12,31 @@ function setUpInputs(){
         // Store initial order
         let elements = Array.from(select.children);
         elements.forEach((el) => {
-
-            el.addEventListener("click", function(){
+            el.addEventListener("mousedown", function(){
                 setFirst(this);
             });
         }); 
     }
 };
 function toggleInput(element) {
-  if (selected) {
+  if (selected == true) {
     element.classList.remove("selected");
     selected = false;
   } else {
     element.classList.add("selected");
     selected = true;
+    element.focus();
+    setTimeout(function(){
+        focused = true;
+    }, 2);
+    
   }
 }
 function setFirst(element, external = false){
     let immediateOrder = element.parentElement.getAttribute("normalorder");
     const ids = JSON.parse(immediateOrder);
     const normalOrder = ids.map(id => document.getElementById(id));
-    let minusAmount = 0;
-    // Use normalOrder.length for original count
-    // Use CSS variable for item height (matches your style)
     element.parentElement.value = element.innerText;
-
     let itemHeight = element.getBoundingClientRect().height / scale;
     let menuHeight = itemHeight * normalOrder.length;
     root.style.setProperty("--menu-height", menuHeight + "px");

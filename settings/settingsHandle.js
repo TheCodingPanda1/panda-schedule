@@ -1,13 +1,15 @@
-var settingsFolders = document.getElementsByClassName("settings-folder");
+var settingsFolders = Array.from(document.getElementsByClassName("settings-folder"));
+var settingsTopBar = document.getElementById("settings-top-bar");
+var scroller = document.getElementById("settings-scroller");
 for(var i = 0; i < settingsFolders.length; i ++){
     settingsFolders[i].gotScrollPoint = "false";
-    settingsFolders[i].addEventListener("click", function(e) {
+    settingsFolders[i].addEventListener("click", function() {
         var el = this.getElementsByClassName("folder-holder")[0];
         el.style.display = "block";
         this.classList.add("hasVisible");
         var div = document.createElement("div");
         div.setAttribute("class", "scroll-point");
-        div.style.left = document.body.getBoundingClientRect().width * parseInt(el.getAttribute("number")) + "px";
+        div.style.left = `calc(var(--screen-width) * ${document.getElementsByClassName("folder-holder").length})`;
         if(this.gotScrollPoint == "false"){
             document.getElementById("settings-scroller").appendChild(div);
             this.gotScrollPoint = "true";
@@ -19,6 +21,8 @@ for(var i = 0; i < settingsFolders.length; i ++){
                 inline: "start"
             });
         }, 1);
+        var p = document.createElement("p");
+        p.setAttribute("onclick", `sendToSettingsPart(${settingsFolders.indexOf(this)})`);
     });
 };
 function setThemeChange(){
@@ -41,7 +45,7 @@ function setThemeChange(){
     }
     changeMode();
 };
-themeChangeSelect.addEventListener("click", setThemeChange);
+themeChangeSelect.addEventListener("mousedown", setThemeChange);
 var theme = localStorage.getItem("theme");
 var searchingFor;
 if(theme == "device"){
@@ -56,7 +60,16 @@ for(let i = 0; i < themeChangeSelect.children.length; i ++){
         setFirst(themeChangeSelect.children[i], true);
     }
 }
-function sendToSettingsPart(){
-    document.getElementsByClassName("scroller")[0].scrollTo(parseInt(this.getAttribute("whereToScroll")), 0);
+function sendToSettingsPart(scrollNum){
+    document.getElementsByClassName("scroller")[0].scrollTo(scrollNum * sd.width, 0);
 }
-document.getElementById("settingsLink").addEventListener("click", sendToSettingsPart);
+themeChangeSelect.addEventListener("focusout", function(){
+    setTimeout(function(){
+        if(focused == true){
+            themeChangeSelect.classList.remove("selected");
+            selected = false;
+            console.log("TATATAT");
+            focused = false;
+        }
+    }, 1);
+});

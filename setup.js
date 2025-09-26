@@ -8,6 +8,16 @@ var movedAmount = 0;
 var direction = 0;
 var trimAmount = 0;
 var transition = "0.25s";
+var sd = root.getBoundingClientRect();
+var focused = false;
+root.style.setProperty("--screen-width", sd.width + "px");
+window.addEventListener("resize", function(){
+    sd = root.getBoundingClientRect();
+    root.style.setProperty("--screen-width", sd.width + "px");
+    root.style.setProperty("--screen-height", sd.height + "px");
+});
+
+var scale = 0.75;
 if(!localStorage.getItem("theme")){
     localStorage.setItem("theme", "device");
 }
@@ -15,8 +25,6 @@ if(!localStorage.getItem("theme")){
 var screens = document.getElementsByClassName("screen");
 var tabs = document.getElementsByClassName("tab");
 var tabHolder = document.getElementById("tab-holder");
-root.style.setProperty("--screen-width", document.body.getBoundingClientRect().width + "px");
-root.style.setProperty("--screen-height", document.body.getBoundingClientRect().height + "px");
 var main = document.getElementById("main");
 var selectedGradients = document.getElementsByClassName("selected-gradient");
 var firstThemeChange = true;
@@ -52,7 +60,7 @@ var set0 = setInterval(() => {
 }, 100);
 function setScreenPos() {
     for(var i = 0; i < screens.length; i ++){
-        screens[i].style.left = (i * document.body.getBoundingClientRect().width) + "px";
+        screens[i].style.left = (i * sd.width) + "px";
     }
 }
 setScreenPos();
@@ -74,11 +82,14 @@ if(localStorage.getItem("customTheme") == "true"){
     customTheme = true;
 }
 function changeMode() {
+    if(window.parent){
+        window.parent.document.documentElement.style.setProperty("--transition", "0s");
+    }
     if(firstThemeChange){
         root.style.setProperty("--transition", "0s");
         setTimeout(function(){
             firstThemeChange = false;
-        }, 1)   
+        }, 1);
     }
     document.body.setAttribute("class", "themeChanging");
     if(customTheme == false) {
@@ -86,12 +97,22 @@ function changeMode() {
     }
     if(isDarkMode){
         root.classList.add("document-dark-mode");
+        if(window.parent){
+            window.parent.document.documentElement.classList.add("document-dark-mode");
+        }
     } else {
         root.classList.remove("document-dark-mode");
+        if(window.parent){
+            window.parent.document.documentElement.classList.remove("document-dark-mode");
+        }
     }
     setTimeout(function() {
         root.style.setProperty("--transition", transition);
         document.body.setAttribute("class", "");
+        if(window.parent){
+            window.parent.document.documentElement.style.setProperty("--transition", transition);
+
+        }
     }, 1);
 }
 changeMode();

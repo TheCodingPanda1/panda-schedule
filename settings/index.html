@@ -19,15 +19,15 @@
                 <div class = "folder-holder" number = "1">
                     <div class = "theme-option">
                         <div id = "themeChangeHolder">
-                            Theme: <div class = "input" tabindex = "1" id = "themeChangeSelect" value = "Device" normalorder='["deviceThemeOption", "lightThemeOption", "darkThemeOption"]'>
+                            <div id = "themeChangeDiv">Theme: </div><div class = "input" tabindex = "1" id = "themeChangeSelect" value = "Device" normalorder='["deviceThemeOption", "lightThemeOption", "darkThemeOption"]'>
                                 <div tabindex="1" id = "deviceThemeOption">
-                                    Device <div class = "colour-widget" id = "device"></div>
+                                    Device <div class = "colour-widget" id = "device" tabindex="1"></div>
                                 </div>
                                 <div tabindex="1" id = "lightThemeOption">
-                                    Light <div class = "colour-widget" id = "light"></div>
+                                    Light <div class = "colour-widget" id = "light" tabindex="1"></div>
                                 </div>
                                 <div tabindex="1" id = "darkThemeOption">
-                                    Dark <div class = "colour-widget" id = "dark"></div>
+                                    Dark <div class = "colour-widget" id = "dark" tabindex="1"></div>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
         </div>
     </div>
     <div id = "settings-top-bar" class = "control-top-bar">
-        <p id = "settingsLink" whereToScroll = "0">Settings</p>
+        <p id = "settingsLink" onclick="sendToSettingsPart(0)">Settings</p>
     </div>
 </body>
 </html>

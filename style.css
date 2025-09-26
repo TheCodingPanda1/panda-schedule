@@ -3,9 +3,9 @@
   --hovered-background: rgb(240, 240, 240);
   --pannel: treansparent;
   --tabs: transparent;
-  --text: rgb(50, 50, 50);
+  --text: rgb(10, 10, 10);
   --hovered-pannel: var(--hovered-background);
-  --selected-pannel: rgba(240, 240, 240, 0.9);
+  --transparent-background: rgba(240, 240, 240, 0.25);
   --hovered-tabs: var(--hovered-background);
   --active-tabs: var(--background);
   --shadows: rgb(100, 100, 100);
@@ -17,13 +17,13 @@
   --hovered-tab-box-shadow: none;
   --transition: 0.25s;
   --search-bar-height: 0rem;
-  --radius: 1rem;
-  --nec-radius: 1rem;
+  --radius: 1.25rem;
+  --nec-radius: 1.25rem;
   --button-scale: 0.75;
   --maximum-tab-width: 100%;
   --tab-width: calc(33% / var(--button-scale));
   --tab-margin: calc((3.125rem - (3.125rem * var(--button-scale))) / 2 / var(--button-scale));
-  --blur-amount: 5px;
+  --blur-amount: 50px;
   --highlight-colour: rgb(0, 0, 255);
   --slider-height: 0.4375rem;
   --highlight-text: var(--hovered-pannel);
@@ -39,7 +39,6 @@ html {
 .document-dark-mode {
   --background: rgb(50, 50, 50);
   --hovered-background: rgb(100, 100, 100);
-  --text: rgb(200, 200, 200);
   --shadows: rgb(225, 225, 225);
   --borders: transparent;
   --right-width: 280px;
@@ -47,7 +46,7 @@ html {
   --highlight-text: rgb(25, 25, 25);
   --main: rgb(10, 10, 10);
   --hovered-main: rgb(100, 100, 100);
-  --selected-pannel: rgba(100, 100, 100, 0.9);
+  --text: rgb(220, 220, 220);
 ;}
 body {
   position: absolute;
@@ -269,10 +268,10 @@ body {
   cursor: text;
   outline: none;
   height: var(--search-bar-height);
-  background: var(--selected-pannel);
   box-shadow: 0 2px var(--shadow-weight) var(--shadows);
   border-radius: var(--nec-radius);
   backdrop-filter: blur(var(--blur-amount));
+  background: var(--transparent-background);
 }
 #search-bar div:not(#search-bar div div) {
   width: 100%;
@@ -280,7 +279,7 @@ body {
   left: 0px;
   top: 3.125rem;
 }
-#search-bar div div {
+#search-bar div div{
   width: 100%;
   height: 3.125rem;
   display: flex;
@@ -427,10 +426,9 @@ body {
 .scroller:not(.scroller .scroller) {
   position: absolute;
   top: 0px;
-  width: calc(var(--screen-width) - (3.125rem - 3.125rem * var(--button-scale)));
-  height: calc(100% - (3.125rem - 3.125rem * var(--button-scale)) / 2 * var(--button-scale));
+  width: calc(100% - (3.125rem - 3.125rem * var(--button-scale)));
+  height: calc(100% - (3.125rem - 3.125rem * var(--button-scale)) / 2);
   margin-left: calc((3.125rem - 3.125rem * var(--button-scale)) / 2);
-  overflow: hidden;
   background: var(--main);
   border-radius: var(--radius);
   box-shadow: 0 2px var(--shadow-weight) var(--shadows);
@@ -474,7 +472,7 @@ body {
   height: calc(3.125rem + 5px);
 }
 .settings-folder {
-  width: calc(100% / var(--button-scale) - (3.125rem - 3.125rem * var(--button-scale)) / var(--button-scale));
+  width: calc((100% - (3.125rem - 3.125rem * var(--button-scale))) / var(--button-scale));
   height: 3.125rem;
   display: flex;
   scale: var(--button-scale);
@@ -487,6 +485,7 @@ body {
   justify-content: center;
   font-size: 2rem;
   overflow: visible;
+  position: relative;
 }
 #settings-top-bar p {
   cursor: pointer;
@@ -518,24 +517,26 @@ body {
 
 .folder-holder {
   display: none;
-  width: 100%;
+  width: calc(var(--screen-width) / var(--button-scale));
   height: fit-content;
   position: absolute;
   left: calc(var(--screen-width) / var(--button-scale));
   top: 0px;
 }
 .scroll-point {
-  width: var(--screen-width);
+  width: 50px;
+  height: 50px;
   margin: 0px;
   padding: 0px;
   scroll-snap-align: start;
-  background: transparent;
   pointer-events: none;
   position: absolute;
+  top: 0px;
+  left: 0px;
 }
 .input {
     width: fit-content;
-    background: var(--background);
+    background: var(--main);
     border-radius: var(--radius);
     content-visibility: auto;
     display: inline-block;
@@ -556,31 +557,32 @@ body {
     padding-right: 1.875rem;
 }
 .input div:not(.colour-widget):hover {
-    background: var(--hovered-background);
+    background: var(--hovered-main);
 }
 .selected:focus {
     box-shadow: 0 2px var(--shadow-weight) var(--shadows);
     height: var(--menu-height);
     backdrop-filter: blur(var(--blur-amount));
-    background: var(--hovered-background);
+    background: var(--transparent-background);
 }
 .selected:focus div:not(.colour-widget) {
   transition: none;
   border-radius: var(--radius);
-  background: var(--hovered-background)
 }
 .selected:focus div:not(.colour-widget):hover {
   background: var(--highlight-colour);
-  color: var(--highlight-text)
+  color: var(--highlight-text);
 }
 #themeChangeHolder {
   height: calc(3.125rem * var(--button-scale));
   width: fit-content;
   display: flex;
-  align-items: center;
 }
-#themeChangeHolder .selected {
-  margin-top: calc(3.125rem * 2);
+#themeChangeDiv {
+  width: fit-content;
+  height: calc(3.125rem);
+  display: flex;
+  align-items: center;
 }
 .input::before {
   content: "";
