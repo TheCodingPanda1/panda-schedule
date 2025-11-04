@@ -3,9 +3,9 @@ var settingsOpen = false;
 var settingsPos = 0;
 var themeChangeSelect;
 function init_settings(){
+            
             setScreenPos();
             setThemeChange();
-            setUpInputs();
             var theme = localStorage.getItem("theme");
             var searchingFor;
             if(theme == "device"){
@@ -22,6 +22,7 @@ function init_settings(){
             }
         }
 settingsButton.addEventListener("click", function() {
+    
     for(var i = 0; i < screens.length; i ++) {
         if(screens[i].getAttribute("id") == "settings-screen") {
             settingsOpen = true;
@@ -33,37 +34,17 @@ settingsButton.addEventListener("click", function() {
         main.scrollTo(settingsPos * sd.width, 0);
     }
     else{
-        newTab("<p>Settings</p> <div class = 'selected-gradient'></div>", "./settings/index.html", "settings-screen");
+        newTab("<p>Settings</p> <div class = 'selected-gradient'></div> <div class = 'closetab'></div>", "./settings/index.html");
         main.scrollTo(main.scrollWidth, 0);
     } 
     setClicks();
     //The actual functionality of the settings screen
-    var folders = document.getElementsByClassName("settings-folder");
-    function setUpSettingsFolders(){
-        for(var i = 0; i < folders.length; i ++) {
-            folders[i].number = i;
-            folders[i].addEventListener("click", function() {
-                this.getElementsByClassName("folder-holder")[0].style.display = "block";
-                requestAnimationFrame(() => {
-                    this.getElementsByClassName("folder-holder")[0].scrollIntoView({
-                        behavior: "smooth",
-                        block: "nearest",
-                        inline: "start"
-                    });
-                });
-                var div = document.createElement("div");
-                div.setAttribute("class", "scroll-point");
-                div.style.left = (this.number + 1) * 100 + "%";
-                document.getElementById("settings-scroller").appendChild(div);
-            });
-        }
-    }
-    setUpSettingsFolders();
-    root.style.setProperty("--tab-width", tabs[0].getBoundingClientRect().width / scale + "px");  
-    window.addEventListener("resize", setUpSettingsFolders);       
+    root.style.setProperty("--tab-width", tabs[0].getBoundingClientRect().width / scale + "px");
 });
 function setThemeChange(){
+    
     themeChangeSelect.addEventListener("mousedown", function(e){
+        
         e.stopPropagation();
         var value = themeChangeSelect.value.replace("\n", "").replace("\r", "");
         if(value == "Device"){

@@ -8,6 +8,7 @@ var enter = false;
 var subjects = [];
 for(var i = 0; i < createTasks.length; i ++){
     createTasks[i].addEventListener("mousedown", function(){
+        
         if(this.getElementsByClassName("mockTask").length == 0){
             startPoint = mouseY - this.getBoundingClientRect().top;
             mockTask = document.createElement("div");
@@ -20,6 +21,7 @@ for(var i = 0; i < createTasks.length; i ++){
                 
             });
             interval = setInterval(function(){
+                console.log("yay±");
                 var hours = Math.floor(mockTask.getBoundingClientRect().height / 120);
                 var minutes = Math.floor((mockTask.getBoundingClientRect().height / 120 - hours) * 60);
                 var string = "";
@@ -51,12 +53,3 @@ for(var i = 0; i < createTasks.length; i ++){
         
     });
 }
-document.addEventListener("mouseup", function(){
-    if(interval){
-        clearInterval(interval);
-        interval = null;
-        mockTask.innerHTML = /*html*/`<input type = "text" class = 'createInput mockTaskTitleInput' placeholder = 'Title'><textarea class = 'createInput mockTaskDescriptionInput' placeholder = 'Description (optional)'></textarea><div class = 'input' tabindex="1" onfocusout = "closeInput(this)"><div class = "placeholder">Subject (select)</div><div>New task</div><div>Another Option</div></div>`;
-        setUpInputs();
-        root.style.setProperty("--mockTaskContent", "");
-    }
-});

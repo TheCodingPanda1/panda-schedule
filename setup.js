@@ -8,10 +8,61 @@ var movedAmount = 0;
 var direction = 0;
 var trimAmount = 0;
 var transition = "0.25s";
-var sd = root.getBoundingClientRect();
 var focused = false;
+var sd = root.getBoundingClientRect();
+var searchItems = [
+    ["Settings", function(){
+        
+        if(!document.getElementById("settings-screen")){
+            newTab("<p>Settings</p> <div class = 'focused-gradient'></div> <div class = 'closetab'></div>", "./settings/index.html", "settings-screen"); 
+            setClicks(); 
+            root.style.setProperty("--tab-width", tabs[0].getBoundingClientRect().width / scale + "px");
+            neededTransition = "0.25s";
+        } else {
+            document.getElementById("settings-screen").scrollIntoView();
+            neededTransition = "0.25s";
+        }
+    }],
+    ["Show Sidebar", function(){
+        console.log('yay')
+        
+    }],
+    ["Create Task", function(){
+        
+        
+    }],
+    ["New Tab", function(){
+        
+    }]
+];
+var pinned = [
+    ["Settings", function(){
+        if(!document.getElementById("settings-screen")){
+            newTab("<p>Settings</p> <div class = 'focused-gradient'></div> <div class = 'closetab'></div>", "./settings/index.html", "settings-screen");
+            setClicks(); 
+            root.style.setProperty("--tab-width", tabs[0].getBoundingClientRect().width / scale + "px");
+            neededTransition = "0.25s";
+            
+        } else {
+            document.getElementById("settings-screen").scrollIntoView();
+            neededTransition = "0.25s";
+        }
+    }],
+    ["Show Sidebar",function(){
+        
+        
+    }],
+    ["Create Task", function(){
+        
+    }],
+    ["New Tab", function(){
+        
+    }]
+]
 root.style.setProperty("--screen-width", sd.width + "px");
+root.style.setProperty("--screen-height", sd.height + "px");
 window.addEventListener("resize", function(){
+    
     sd = root.getBoundingClientRect();
     root.style.setProperty("--screen-width", sd.width + "px");
     root.style.setProperty("--screen-height", sd.height + "px");
@@ -26,12 +77,22 @@ var screens = document.getElementsByClassName("screen");
 var tabs = document.getElementsByClassName("tab");
 var tabHolder = document.getElementById("tab-holder");
 var main = document.getElementById("main");
-var selectedGradients = document.getElementsByClassName("selected-gradient");
+var focusedGradients = document.getElementsByClassName("focused-gradient");
 var firstThemeChange = true;
+var invertSelect = document.getElementById("invertCheckbox");
+if(localStorage.getItem("inverted") == "true"){
+    if(invertSelect){
+        invertSelect.checked = true;
+    } else {
+        document.body.style.filter = "invert(100%)";
+    }
+    
+}
 if(main){
     main.scrollLeft = 0;
 }
 function pxify(num){
+    
     let testEl = document.createElement("div");
     testEl.style.width = "1rem";
     testEl.style.height = "1px";
@@ -40,6 +101,7 @@ function pxify(num){
     return num * remSize;
 }
 function pxCssVar (variable){
+    
     let element = document.createElement("div");
     element.style.width = `var(--${variable})`;
     document.body.appendChild(element);
@@ -48,17 +110,13 @@ function pxCssVar (variable){
     document.body.removeChild(element);
     return result;
 }
-var set0 = setInterval(() => {
-    if(main){
-        if(main.scrollLeft == 0){
-            clearInterval(set0);
-        } else{
-            main.scrollLeft = 0;
-        }
+document.addEventListener("DOMContentLoaded", function(){
+    if(window.self == window.top){
+        main.scrollLeft = 0;
     }
-    
-}, 100);
+});
 function setScreenPos() {
+    
     for(var i = 0; i < screens.length; i ++){
         screens[i].style.left = (i * sd.width) + "px";
     }
@@ -82,12 +140,14 @@ if(localStorage.getItem("customTheme") == "true"){
     customTheme = true;
 }
 function changeMode() {
+    
     if(window.parent){
         window.parent.document.documentElement.style.setProperty("--transition", "0s");
     }
     if(firstThemeChange){
         root.style.setProperty("--transition", "0s");
         setTimeout(function(){
+            
             firstThemeChange = false;
         }, 1);
     }
@@ -107,6 +167,7 @@ function changeMode() {
         }
     }
     setTimeout(function() {
+        
         root.style.setProperty("--transition", transition);
         document.body.setAttribute("class", "");
         if(window.parent){
@@ -118,9 +179,11 @@ function changeMode() {
 changeMode();
 var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 mediaQuery.addEventListener('change', function(){
+    
     changeMode();
 });
 window.addEventListener("mousemove", function(e){
+    
     mouseX = e.clientX;
     mouseY = e.clientY;
 });

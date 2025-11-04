@@ -1,9 +1,11 @@
 var settingsFolders = Array.from(document.getElementsByClassName("settings-folder"));
 var settingsTopBar = document.getElementById("settings-top-bar");
 var scroller = document.getElementById("settings-scroller");
+setUpInputs();
 for(var i = 0; i < settingsFolders.length; i ++){
     settingsFolders[i].gotScrollPoint = "false";
     settingsFolders[i].addEventListener("click", function() {
+        
         var el = this.getElementsByClassName("folder-holder")[0];
         el.style.display = "block";
         this.classList.add("hasVisible");
@@ -15,17 +17,20 @@ for(var i = 0; i < settingsFolders.length; i ++){
             this.gotScrollPoint = "true";
         }
         setTimeout(function(){
+            
             el.scrollIntoView({
                 behavior: "smooth",
                 block: "nearest",
                 inline: "start"
             });
+            setUpInputs();
         }, 1);
         var p = document.createElement("p");
         p.setAttribute("onclick", `sendToSettingsPart(${settingsFolders.indexOf(this)})`);
     });
 };
 function setThemeChange(){
+    
     var value = themeChangeSelect.value.replace("\n", "").replace("\r", "");
     if(value == "Device"){
         isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -61,15 +66,27 @@ for(let i = 0; i < themeChangeSelect.children.length; i ++){
     }
 }
 function sendToSettingsPart(scrollNum){
+    
     document.getElementsByClassName("scroller")[0].scrollTo(scrollNum * sd.width, 0);
 }
 themeChangeSelect.addEventListener("focusout", function(){
-    setTimeout(function(){
+    
+    setTimeout(() => {
         if(focused == true){
-            themeChangeSelect.classList.remove("selected");
-            selected = false;
-            console.log("TATATAT");
+            this.classList.remove("selected");
             focused = false;
+            root.style.setProperty("--input-width", "fit-content");
+            this.style.width = this.children[0].clientWidth + "px";
         }
     }, 1);
+});
+invertSelect.addEventListener("click", function(){
+    
+    if(invertSelect.checked){
+        window.parent.document.body.style.filter = "invert(100%)";
+        localStorage.setItem("inverted", "true");
+    } else {
+        window.parent.document.body.style.filter = "invert(0%)";
+        localStorage.setItem("inverted", "false");
+    }
 });

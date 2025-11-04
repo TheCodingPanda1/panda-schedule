@@ -1,0 +1,1 @@
+var rightClickMenu = document.getElementById("right-click-menu");

@@ -1,31 +1,8 @@
 //Search bar suggestions
 var input = document.getElementById("search-input");
 var items = document.getElementById("search-results");
-const searchItems = [
-    ["Settings", function(){newTab("<p>Settings</p> <div class = 'selected-gradient'></div>", "<iframe class = 'screen' id = 'settings-screen' src='./settings/index.html'></iframe>"); root.style.setProperty("--tab-width", tabs[0].getBoundingClientRect().width / scale + "px"); neededTransition = "0.25s"; setClicks();}],
-    ["Show Sidebar", function(){
-        
-    }],
-    ["Create Task", function(){
-        
-    }],
-    ["New Tab", function(){
-        
-    }]
-];
-const pinned = [
-    ["Settings", function(){newTab("<p>Settings</p> <div class = 'selected-gradient'></div>", "<iframe class = 'screen' id = 'settings-screen' src='./settings/index.html'></iframe>")}],
-    ["Show Sidebar",function(){
-        
-    }],
-    ["Create Task", function(){
-        
-    }],
-    ["New Tab", function(){
-        
-    }]
-]
 const reloadSuggestions = function(){
+    
     items.innerHTML = "";
     var values = [];
     for(var k = 0; k < searchItems.length; k ++){
@@ -58,29 +35,27 @@ const reloadSuggestions = function(){
             div.arraySpot = k;
             items.appendChild(div);
             div.addEventListener("mousedown", function(){
+                
                 searchItems[this.arraySpot][1]();
             });
             numberOfHighest ++;
         }
     }
-    root.style.setProperty("--search-bar-height", (numberOfHighest + 1) * 50 + "px");
+    root.style.setProperty("--search-bar-height", (numberOfHighest + 1) * pxify(3.125) + "px");
     if(input.value == ""){
         setPinnedItems();
     }
-    input.addEventListener("focusout", function() {
-        input.value = "";
-        reloadSuggestions();
-        input.setAttribute("placeholder", "Panda Schedule");
-    });
-    if(highest == 0 && input.value.length != 0 && input.value != "?" || input.value.length / 5 > highest && input.value.length != 0 && input.value != "?"){
-        items.innerHTML = "<span><p>No results found</p></span>";
-        numberOfHighest = 1;
-        root.style.setProperty("--search-bar-height", (numberOfHighest + 1) * 50 + "px");
-    }
 }
+input.addEventListener("focusout", function() {
+    
+    input.value = "";
+    input.setAttribute("placeholder", "Panda Schedule");
+    items.innerHTML = "";
+});
 input.addEventListener("keyup", reloadSuggestions);
 input.addEventListener("focusin", function(){
     setPinnedItems();
+    
 });
 function setPinnedItems () {
     items.innerHTML = "";
@@ -89,6 +64,11 @@ function setPinnedItems () {
         let div = document.createElement("div");
         div.innerHTML = `<p>${pinned[i][0]}</p>`;
         items.appendChild(div);
+        div.num = i;
+        div.addEventListener("mousedown", function(){
+            
+            pinned[this.num][1]();
+        });
     }
-    root.style.setProperty("--search-bar-height", (pinned.length + 1) * 50 + "px")
+    root.style.setProperty("--search-bar-height", (pinned.length + 1) * pxify(3.125) + "px")
 }

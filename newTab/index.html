@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panda Schedule</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src = "../setup.js" defer></script>
+    <script src = "../details.js" defer></script>
+    <script src = "./script.js" defer></script>
+    <script src = "../newtab.js" defer></script>
+</head>
+<body>
+    <div class = "scroller">
+        <center>
+            <h1>New Tab</h1>
+        </center>
+        <a class = "new-tab-link">Day View</a>
+        <a class = "new-tab-link">Week View</a>
+        <a class = "new-tab-link">Month View</a>
+        <hr>
+        <div class = "details">
+            <input type = "checkbox">
+            <div>Other</div>
+            <div>
+                <a class = "new-tab-link">Fortnight View</a>
+                <a class = "new-tab-link">Year View</a>
+                <a class = "new-tab-link" onclick = "console.log('yay!')">Settings</a>
+            </div>
+        </div>
+        <hr>
+        <div id = "custom-new-tab" tabindex="1">
+            <div>
+                <input placeholder = "Tab Name">
+            </div>
+        </div>
+</div>
+</body>
+</html>

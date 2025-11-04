@@ -7,6 +7,8 @@ var maxTabWidth = pxCssVar("maximum-tab-width");
 var tabWidth = tabs[0].getBoundingClientRect().width;
 var main = document.getElementById("main");
 var neededTransition = "0s";
+var clickedOn = false;
+var closingTab = false;
 
 root.style.setProperty("--tab-width", tabWidth / scale + "px");
 var minusAmount = 0;
@@ -20,13 +22,16 @@ for(var i = 0; i < tabs.length; i ++){
 // The functions
 
 function getContentWidth(element){
+    
     return element;
 }
 function remify(num){
+    
     return num / 16;
 }
 
 function findWhichElement(element, array){
+    
     for(var i = 0; i < array.length; i ++){
         if(array[i] === element){
             return i;
@@ -36,8 +41,14 @@ function findWhichElement(element, array){
 }
 var lastScrollLeft = 0;
 function changeSliderPos(){
+    
     if(Math.round(main.scrollLeft / sd.width) != main.scrollLeft / sd.width){
         neededTransition = "0s";
+    } else {
+        for(var i = 0; i < tabs.length; i ++){
+            tabs[i].classList.remove("selectedTab");
+        }
+        tabs[main.scrollLeft / sd.width].classList.add("selectedTab");
     }
     slider.style.transition = neededTransition;
     var scrollAmount = main.scrollLeft / sd.width - Math.floor(main.scrollLeft / sd.width);
@@ -67,6 +78,7 @@ function changeSliderPos(){
     slider.style.left = scrollAmount * (toElement.offsetLeft - fromElement.offsetLeft) + fromElement.offsetLeft + "px";
 }
 window.addEventListener("resize", function() {
+    
     root.style.setProperty("--screen-width", sd.width + "px");
     setScreenPos();
     changeSliderPos();
@@ -74,27 +86,49 @@ window.addEventListener("resize", function() {
 changeSliderPos();
 main.addEventListener("scroll", changeSliderPos);
 function setClicks(){
+    
     for(var i = 0; i < tabs.length; i ++){
         tabs[i].addEventListener("click", function(){
-            var screen = screens[findWhichElement(this, tabs)];
-            var screenLeft = screen.offsetLeft;
-            main.scrollTo({
-                left: screenLeft
-            });
-            neededTransition = "var(--transition)";
-            setTimeout(function() {
-                neededTransition = "0s";
-            }, root.style.getPropertyValue("--transition").replace("s", "") * 1000);
+            
+            setTimeout(() => {
+                if(closingTab == false){
+                    this.blur();
+                    var thisnum = findWhichElement(this, tabs);
+                    var screen = screens[thisnum];
+                    var screenLeft;
+                    if(screen){
+                        screenLeft = screen.offsetLeft;
+                    }
+                    main.scrollTo({
+                        left: screenLeft
+                    });
+                    neededTransition = "var(--transition)";
+                }
+            }, 1);
+        });
+        if(tabs[i].getElementsByClassName("closetab")[0]){
+            if(!tabs[i].hasEventListener){
+                tabs[i].getElementsByClassName("closetab")[0].addEventListener("click", function(){
+                    
+                    deleteTab(this);
+                });
+            }
+            tabs[i].hasEventListener = true;
+        }
+        tabs[i].addEventListener("ondrag", function(){
+            
         });
     }
 }
 setClicks();
 window.addEventListener("resize", function() {
+    
     root.style.setProperty("--screen-width", sd.width + "px");
     root.style.setProperty("--screen-height", sd.height + "px");
     setScreenPos();
     changeSliderPos();
 });
 window.addEventListener("resize", function(){
+    
     root.style.setProperty("--tab-width", tabs[0].getBoundingClientRect().width / scale + "px");
 });

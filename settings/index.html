@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Panda Schedule</title>
     <link rel="stylesheet" href="../style.css">
     <script src="../setup.js" defer></script>
     <script src="../input.js" defer></script>
@@ -18,7 +18,7 @@
                 <p>Appearance</p>
                 <div class = "folder-holder" number = "1">
                     <div class = "theme-option">
-                        <div id = "themeChangeHolder">
+                        <div class = "settingsItemHolder">
                             <div id = "themeChangeDiv">Theme: </div><div class = "input" tabindex = "1" id = "themeChangeSelect" value = "Device" normalorder='["deviceThemeOption", "lightThemeOption", "darkThemeOption"]'>
                                 <div tabindex="1" id = "deviceThemeOption">
                                     Device <div class = "colour-widget" id = "device" tabindex="1"></div>
@@ -31,6 +31,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class = "settingsItemHolder">
+                        <span>Invert Colours:</span> <input type = "checkbox" class = "textCheckBox" id = "invertCheckbox"></input>
                     </div>
                 </div>
             </div>

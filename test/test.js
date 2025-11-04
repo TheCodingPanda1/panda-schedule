@@ -1,3 +1,4 @@
-var input = document.getElementsByTagName("input")[0];
-input.placeholder = "Title";
-input.setAttribute("placeholder", "Title");
+var svg = document.getElementById("svgHolder");
+svg.innerHTML = `<path fill = "var(--main)">
+    
+</path>`
