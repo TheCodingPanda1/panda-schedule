@@ -6,7 +6,6 @@
     <title>Panda Schedule</title>
     <link rel="stylesheet" href="../style.css">
     <script src = "../setup.js" defer></script>
-    <script src = "../details.js" defer></script>
     <script src = "./script.js" defer></script>
     <script src = "../newtab.js" defer></script>
 </head>
@@ -19,15 +18,16 @@
         <a class = "new-tab-link">Week View</a>
         <a class = "new-tab-link">Month View</a>
         <hr>
-        <div class = "details">
-            <input type = "checkbox">
-            <div>Other</div>
-            <div>
-                <a class = "new-tab-link">Fortnight View</a>
-                <a class = "new-tab-link">Year View</a>
-                <a class = "new-tab-link" onclick = "console.log('yay!')">Settings</a>
-            </div>
-        </div>
+        <div class="custom-details" id="myDetails">
+  <div class="custom-summary">Click to Expand</div>
+  <div class="custom-content">
+    <div class="custom-content-inner">
+      <div class="item">Item 1</div>
+      <div class="item">Item 2</div>
+      <div class="item">Item 3</div>
+    </div>
+  </div>
+</div>
         <hr>
         <div id = "custom-new-tab" tabindex="1">
             <div>

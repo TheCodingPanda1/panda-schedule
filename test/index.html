@@ -1,87 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CSS Grid Details Component</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 2rem;
-      background: #f9f9f9;
-    }
-
-    .grid-details {
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background: #fff;
-      max-width: 600px;
-      margin: 0 auto;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      background: blue;
-    }
-
-    .grid-details label {
-      display: block;
-      padding: 1rem;
-      background: #eee;
-      cursor: pointer;
-      font-weight: bold;
-      background: red;
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-rows: 0fr auto;
-      transition: grid-template-rows 0.25s ease;
-      overflow: hidden;
-      background: yellow;
-    }
-
-    .content {
-      overflow: hidden;
-      padding: 0 1rem;
-      transition: padding 0.25s ease, opacity 0.25s ease;
-      opacity: 0;
-      border: 1px solid black;
-      background: green;
-    }
-
-    .footer {
-      padding: 1rem;
-      background: #f0f0f0;
-      border-top: 1px solid #ddd;
-    }
-
-    input[type="checkbox"] {
-      display: none;
-    }
-
-    input[type="checkbox"]:checked ~ .grid-container {
-      grid-template-rows: 1fr auto;
-    }
-
-    input[type="checkbox"]:checked ~ .grid-container .content {
-      opacity: 1;
-      padding: 1rem;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom search!</title>
 </head>
 <body>
-  <noscript>
-    <div class="grid-details">
-      <input type="checkbox" id="toggle" />
-      <label for="toggle">Toggle Details</label>
-      <div class="grid-container">
-        <div class="content">
-          <p>This is the expandable content. It transitions smoothly using CSS Grid without layout jumps.</p>
-          <p>You can add more content here and it will expand gracefully.</p>
-        </div>
-        <div class="footer">
-          <p>This is content below the expandable section. It stays in place during the transition.</p>
-        </div>
-      </div>
-    </div>
-  </noscript>
+  <input>
+  <div id="itemHolder"></div>
+  <script src="test.js" defer></script>
 </body>
 </html>

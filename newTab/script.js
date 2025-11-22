@@ -17,3 +17,9 @@ function changeTab(tabInnerHTML, screenSource, iframeId = NaN){
     }
 
 }
+const details = document.getElementById('myDetails');
+const summary = details.querySelector('.custom-summary');
+
+summary.addEventListener('click', () => {
+  details.classList.toggle('open');
+});

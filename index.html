@@ -29,6 +29,8 @@
     <script src="./settings.js" defer></script>
 
     <script src="./organise.js" defer></script>
+
+    <script src = "./tabSvg.js" defer></script>
     
   </head>
   <body>
@@ -73,16 +75,22 @@
           <p>Day View</p>
           <div class="selected-gradient"></div>
           <div class = "closetab"></div>
+          <svg class = "tabEdge"></svg>
+          <svg class = "tabEdge"></svg>
         </div>
         <div class = "tab" tabindex = "1">
           <p>Week View</p>
           <div class="selected-gradient"></div>
           <div class = "closetab"></div>
+          <svg class = "tabEdge"></svg>
+          <svg class = "tabEdge"></svg>
         </div>
         <div class = "tab" tabindex = "1">
           <p>Month View</p>
           <div class="selected-gradient"></div>
           <div class = "closetab"></div>
+          <svg class = "tabEdge"></svg>
+          <svg class = "tabEdge"></svg>
         </div>
       </div>
     </div>
@@ -141,20 +149,22 @@
           <h1>Sorry, No JS!</h1>
           <p>For Panda Schedule to work properly, you will need to enable js in your browser.</p>
           <h2>How to</h2>
-          <div class = "details" style = "interpolate-size: allow-keywords;">
+          <div class = "details">
             <input type = "checkbox" checked>
             <div>Chrome</div>
             <div>
-              <ul style = "font-size: 1rem">
-                <li>Type "chrome://settings" into the url bar and press enter</li>
-                <li>Click on "Privacy and security" in the sidebar</li>
-                <li>Click on "Site settings" &gt; "JavaScript"</li>
-                <li>Enable "Sites can use JavaScript"</li>
-              </ul>
+              <div>
+                <ul style = "font-size: 1rem">
+                  <li>Type "chrome://settings" into the url bar and press enter</li>
+                  <li>Click on "Privacy and security" in the sidebar</li>
+                  <li>Click on "Site settings" &gt; "JavaScript"</li>
+                  <li>Enable "Sites can use JavaScript"</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </noscript>
+    </noscript
   </body>
 </html>

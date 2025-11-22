@@ -34,7 +34,7 @@ settingsButton.addEventListener("click", function() {
         main.scrollTo(settingsPos * sd.width, 0);
     }
     else{
-        newTab("<p>Settings</p> <div class = 'selected-gradient'></div> <div class = 'closetab'></div>", "./settings/index.html");
+        newTab("<p>Settings</p> <div class = 'selected-gradient'></div> <div class = 'closetab'></div> <svg class = 'tabEdge'> </svg><svg class = 'tabEdge'></svg>", "./settings/index.html");
         main.scrollTo(main.scrollWidth, 0);
     } 
     setClicks();

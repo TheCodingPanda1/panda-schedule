@@ -23,6 +23,7 @@ function newTab(tabInnerHTML, screenSource, iframeId = NaN){
     setScreenPos();
     main.scrollTo(main.getElementsByClassName("screen")[main.getElementsByClassName("screen").length - 1].offsetLeft, 0);
     setClicks();
+    setEdges();
 }
 function deleteTab(tab){
     
@@ -65,7 +66,7 @@ if(window.self == window.top){
     newTabButton.addEventListener("click", function(){
         console.log("yay");
         neededTransition = "0.25s";
-        newTab("<p>New Tab</p> <div class = 'selected-gradient'></div> <div class = 'closetab'></div>", "./newtab/index.html");
+        newTab("<p>New Tab</p> <div class = 'selected-gradient'></div> <div class = 'closetab'></div><svg class = 'tabEdge'></svg><svg class = 'tabEdge'></svg>", "./newtab/index.html");
         root.style.setProperty("--tab-width", tabs[0].getBoundingClientRect().width / scale + "px");
     });
 }
