@@ -144,22 +144,43 @@
     </div>
     <div id = "right-click-menu"></div>
     <noscript>
-      <div style = "position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.25); backdrop-filter: blur(var(--blur-amount)); z-index: 10; display: flex; justify-content: center; align-items: center;">
-        <div style = "width: fit-content; height: fit-content; border-radius: calc(var(--radius) / var(--button-scale)); background: var(--main); padding: 3.125rem; box-shadow: 0px 2px var(--shadow-weight) var(--shadows); display: flex; justify-content: center; align-items: center; flex-direction: column; position: relative; interpolate-size: allow-keywords; transition: var(--transition);">
+      <div style = "position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.25); backdrop-filter: blur(var(--blur-amount)); z-index: 10; display: flex; justify-content: center; align-items: center; overflow: scroll;">
+        <div style = "width: fit-content; height: fit-content; border-radius: calc(var(--radius) / var(--button-scale)); background: var(--main); padding: 3.125rem; box-shadow: 0px 2px var(--shadow-weight) var(--shadows); display: flex; justify-content: center; align-items: center; flex-direction: column; position: relative; interpolate-size: allow-keywords; transition: var(--transition); animation: popUp var(--transition);">
           <h1>Sorry, No JS!</h1>
-          <p>For Panda Schedule to work properly, you will need to enable js in your browser.</p>
-          <h2>How to</h2>
+          <p>For Panda Schedule to work properly, you will need to enable JavaScript in your browser.</p>
+          <h2 style = "font-size: 1.75rem">How to</h2>
           <div class = "details">
-            <input type = "checkbox" checked>
-            <div>Chrome</div>
-            <div>
-              <div>
-                <ul style = "font-size: 1rem">
-                  <li>Type "chrome://settings" into the url bar and press enter</li>
-                  <li>Click on "Privacy and security" in the sidebar</li>
-                  <li>Click on "Site settings" &gt; "JavaScript"</li>
-                  <li>Enable "Sites can use JavaScript"</li>
-                </ul>
+            <div class="details-title">Google Chrome<input type = "checkbox" class="details-checkbox"></div>
+            <div class="details-content">
+              <div class="details-text">
+                <div class = "li" style="display: flex; align-items: center; width: 100%; justify-content: center;">Click on the menu icon (&nbsp;<div style = "position: relative; display: inline; width: fit-content; height: 1.5rem;"><div style = "width: 0.2rem; height: 0.2rem; position: absolute; left: 0px; top: 0px; background: black;"></div><div style = "width: 0.2rem; height: 0.2rem; position: absolute; left: 0px; top: calc(50% - 0.1rem); background: black;"></div><div style = "width: 0.2rem; height: 0.2rem; position: absolute; left: 0px; bottom: 0px; background: black;"></div></div>&nbsp;) next to the Adress Bar.</div>
+                <div class="li">Click on "Settings". This should take you to the chrome settings page</div>
+                <div class="li">Click on "Privacy and security" in the sidebar</div>
+                <div class="li">Click on "Site settings" &gt; "JavaScript"</div>
+                <div class="li">Enable "Sites can use JavaScript"</div>
+                <b style = "width: 100%; display: flex; justify-content: center;">If that doesn't work</b>
+                <div class = "li">Go back to site settings and click on "pandaschedule.com Blocked JavaScript"</div>
+                <div class = "li">Scroll down to "JavaScript" (&lt; &gt;) and change the dropdown from "block" to "allow"</div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class = "details">
+            <div class = "details-title">Apple Safari<input class = "details-checkbox" type = "checkbox"></div>
+            <div class = "details-content">
+              <div class="details-text">
+                <div class="li">In the mac menu bar, click on "Safari" > "Settings"</div>
+                <div class="li">Select "Security" in the top bar.</div>
+                <div class = "li">Check "Enable JavaScript"</div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class = "details">
+            <div class = "details-title">Microsoft Edge<input class = "details-checkbox" type = "checkbox"></div>
+            <div class="details-content">
+              <div class="details-text">
+                <div class = "li" style="display: flex; align-items: center; width: 100%; justify-content: center;">Click on the menu icon (&nbsp;<div focusable="true" style="display: inline-block; width: 1.1rem; height: 1.1rem; overflow: hidden; margin: 0px;"><div style="height: 1.1rem; width: 1.1rem; display: flex; flex-grow: 0; flex-shrink: 0; justify-content: space-between; margin: 0px; align-items: center;"><div style = "width: 0.2rem; height: 0.2rem; background: black; border-radius: 50%; flex-shrink: 0; flex-grow: 0;"></div><div style = "width: 0.2rem; height: 0.2rem; background: black; border-radius: 50%; flex-shrink: 0; flex-grow: 0;"></div><div style = "width: 0.2rem; height: 0.2rem; background: black; border-radius: 50%; flex-shrink: 0; flex-grow: 0;"></div></div></div>&nbsp;) next to the URL Bar.</div>
               </div>
             </div>
           </div>

@@ -3,11 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Custom search!</title>
+  <title>Smooth Expanding!</title>
+  <style>
+    #expander-wrapper {
+      width: 100%;
+      position: relative;
+      font-size: 25px;
+    }
+    #expander-title {
+      width: 100%;
+      height: calc(3.125rem * 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #expander-content {
+      width: 100%;
+      display: grid;
+      grid-template-rows: 0fr;
+      overflow: hidden;
+      padding: 0px;
+      margin: 0px;
+      min-height: 0px;
+      transition: 0.25s;
+    }
+    #expander-text{
+      min-height: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+    }
+    #expander-checkbox {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      appearance: none;
+    }
+    #expander-wrapper:has(#expander-checkbox:checked) #expander-content {
+      grid-template-rows: 1fr;
+    }
+    #expander-wrapper:has(#expander-checkbox:checked) #expander-title {
+      font-weight:bold;
+    }
+  </style>
 </head>
 <body>
-  <input>
-  <div id="itemHolder"></div>
-  <script src="test.js" defer></script>
+  <h1>Content Before!</h1>
+  <div id = "expander-wrapper">
+    <div id = "expander-title">Open Me!<input type = "checkbox" id = "expander-checkbox"></div>
+    <div id = "expander-content"><div id = "expander-text">You Have Now Opened Me! I am now very happy with you!</div></div>
+  </div>
+  <h1>Content After!</h1>
 </body>
 </html>
