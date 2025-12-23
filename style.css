@@ -1247,7 +1247,7 @@ body {
   padding: 0px;
   margin: 0px;
   min-height: 0px;
-  transition: 0.25s;
+  transition: var(--transition);
 }
 .details-text {
   min-height: 0;
@@ -1255,9 +1255,16 @@ body {
   height: 100%;
   margin: 0px;
   padding: 0px;
+  opacity: 0;
+  transition: var(--transition);
+  visibility: hidden;
 }
 .details:has(.details-checkbox:checked) .details-content {
   grid-template-rows: 1fr;
+}
+.details:has(.details-checkbox:checked) .details-text {
+  opacity: 1;
+  visibility: visible;
 }
 .details:has(.details-checkbox:checked) .details-title {
   font-weight:bold;
@@ -1308,4 +1315,7 @@ hr {
     scale: 1;
     opacity: 1;
   }
+}
+input[type="checkbox"]{
+  margin: 0px;
 }
